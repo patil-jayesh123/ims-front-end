@@ -14,7 +14,7 @@ const Courseform = () => {
   const savecourse = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://127.0.0.1:2000/admin/savecourse", data);
+      await axios.post("https://ims-backend-p5hr.onrender.com/admin/savecourse", data);
       alert("course added successfully");
       console.log(data);
       setData({ name: "", duration: "", instructor: "" });

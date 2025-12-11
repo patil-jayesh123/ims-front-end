@@ -17,7 +17,7 @@ const Studentform = () => {
   const registeruser = async(e)=>{
     e.preventDefault()
     try{
-        await axios.post('http://127.0.0.1:2000/admin/registeruser',data)
+        await axios.post('https://ims-backend-p5hr.onrender.com/admin/registeruser',data)
         alert("students added successfully")
         console.log(data);
         setData({name:"", rollNo:"", course:""})  

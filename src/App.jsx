@@ -36,7 +36,7 @@ function App() {
     // fetch student data here
     const fetchStudents = async () => {
       const token = localStorage.getItem("token");
-      const result = await axios.get("http://127.0.0.1:2000/admin/student", {
+      const result = await axios.get("https://ims-backend-p5hr.onrender.com/admin/student", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setStudentData(result.data || []);
@@ -49,7 +49,7 @@ function App() {
   useEffect(()=>{
     const fetchstaffdata = async ()=>{
       const token = localStorage.getItem("token");
-      const result=await axios.get("http://127.0.0.1:2000/admin/staff",{
+      const result=await axios.get("https://ims-backend-p5hr.onrender.com/admin/staff",{
         headers:{Authorization:`Bearer ${token}`}
       })
       setstaffdata(result.data || [])

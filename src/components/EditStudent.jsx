@@ -17,7 +17,7 @@ const EditStudent = () => {
   // Fetch student data
   const fetchStudent = async () => {
     try {
-      const res = await axios.get(`http://localhost:2000/admin/student/${id}`);
+      const res = await axios.get(`https://ims-backend-p5hr.onrender.com/admin/student/${id}`);
       setData(res.data.student);
     } catch (err) {
       console.log(err);
@@ -37,7 +37,7 @@ const EditStudent = () => {
   const updateStudent = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:2000/admin/update/${id}`, data);
+      await axios.put(`https://ims-backend-p5hr.onrender.com/admin/update/${id}`, data);
       alert("Student updated successfully");
       navigate("/admin/student");
     } catch (err) {

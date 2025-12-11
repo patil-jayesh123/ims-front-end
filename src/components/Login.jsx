@@ -15,7 +15,7 @@ const Login = () => {
   const loginuser = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://127.0.0.1:2000/admin/login", data);
+      const res = await axios.post("https://ims-backend-p5hr.onrender.com/admin/login", data);
       if (res.data.success) {
         alert(res.data.message);
         console.log(res.data.data);

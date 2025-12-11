@@ -18,7 +18,7 @@ const Editstaff = () => {
     //fetch data
     const fetchstaff=async()=>{
         try{
-            const res=await axios.get(`http://127.0.0.1:2000/admin/staff/${id}`)
+            const res=await axios.get(`https://ims-backend-p5hr.onrender.com/admin/staff/${id}`)
             setData(res.data.staff)
         }catch(err){
             console.log(err);
@@ -38,7 +38,7 @@ const dataHandler=(e)=>{
 const updatestaff=async(e)=>{
   e.preventDefault()
   try{
-    await axios.put(`http://localhost:2000/admin/updatestaff/${id}`,data)
+    await axios.put(`https://ims-backend-p5hr.onrender.com/admin/updatestaff/${id}`,data)
     alert("staff updated successfully")
     navigate("/admin/staff")
   }catch(err){

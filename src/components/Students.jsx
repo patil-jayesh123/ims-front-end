@@ -19,7 +19,7 @@ function Students() {
       const token = localStorage.getItem("token"); // token must be stored at login
       console.log("Token milaa:", token);
 
-      const result = await axios.get("http://127.0.0.1:2000/admin/student", {
+      const result = await axios.get("https://ims-backend-p5hr.onrender.com/admin/student", {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log(result.data);
@@ -38,7 +38,7 @@ function Students() {
     if (window.confirm("Are you sure you want to delete this student?")) {
       const token = localStorage.getItem("token");
       try {
-        await axios.delete(`http://localhost:2000/admin/delete/${id}`, {
+        await axios.delete(`https://ims-backend-p5hr.onrender.com/admin/delete/${id}`, {
           headers: {
             "x-token": token,
           },

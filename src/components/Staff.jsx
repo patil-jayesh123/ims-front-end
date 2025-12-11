@@ -20,7 +20,7 @@ function Staff() {
       const token = localStorage.getItem("token");
       console.log("token milla", token);
 
-      const result = await axios.get("http://127.0.0.1:2000/admin/staff", {
+      const result = await axios.get("https://ims-backend-p5hr.onrender.com/admin/staff", {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log(result.data);
@@ -39,7 +39,7 @@ function Staff() {
     if (window.confirm("are you sure you wnt to delete this staff member")) {
       const token = localStorage.getItem("token");
       try {
-        await axios.delete(`http://127.0.0.1:2000/admin/staffdelete/${id}`, {
+        await axios.delete(`https://ims-backend-p5hr.onrender.com/admin/staffdelete/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

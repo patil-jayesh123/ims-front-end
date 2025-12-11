@@ -10,7 +10,7 @@ export default function ResetPassword() {
   const submit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:2000/admin/reset-password/' + token, { password });
+      const res = await axios.post('https://ims-backend-p5hr.onrender.com/admin/reset-password/' + token, { password });
       alert(res.data.msg || 'Password reset successful');
       nav('/login');
     } catch (err) {

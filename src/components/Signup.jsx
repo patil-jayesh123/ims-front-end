@@ -13,7 +13,7 @@ const Signup = () => {
   const registeradmin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://127.0.0.1:2000/admin/register", data);
+      const res = await axios.post("https://ims-backend-p5hr.onrender.com/admin/register", data);
 
       alert(res.data.message); // success message
       console.log(data);

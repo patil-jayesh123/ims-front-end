@@ -7,7 +7,7 @@ export default function ForgotPassword() {
   const submit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:2000/admin/forgot-password', { email });
+      const res = await axios.post('https://ims-backend-p5hr.onrender.com/admin/forgot-password', { email });
       alert(res.data.msg || 'Check response');
       if (res.data.resetURL) alert('Dev reset URL: ' + res.data.resetURL);
     } catch (err) {

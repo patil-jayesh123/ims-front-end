@@ -22,7 +22,7 @@ function Courses() {
       const token = localStorage.getItem("token");
       console.log("token mila", token);
 
-      const result = await axios.get("http://127.0.0.1:2000/admin/courses", {
+      const result = await axios.get("https://ims-backend-p5hr.onrender.com/admin/courses", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
