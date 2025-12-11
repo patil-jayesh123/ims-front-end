@@ -1,0 +1,125 @@
+/* Flex container for sidebar + main content */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar styles (reuse from your Sidebar.css or keep here for dashboard) */
+.sidebar {
+  width: 250px;
+  background: #2c3e50;
+  color: white;
+  padding: 20px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.sidebar .logo {
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 12px 10px;
+  margin: 8px 0;
+  background: #34495e;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sidebar ul li:hover {
+  background: #1abc9c;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  display: block;
+}
+
+/* Main Dashboard Content */
+.main-content {
+  margin-left: 250px; /* leave space for sidebar */
+  padding: 20px;
+  flex: 1;
+}
+
+/* Dashboard header */
+.dashboard-header h1 {
+  margin-bottom: 5px;
+}
+
+.dashboard-header p {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Stats Cards */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background: #1abc9c;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.stat-card:hover {
+  background: #16a085;
+}
+
+.stat-card h3 {
+  margin-bottom: 10px;
+}
+
+/* Recent Activity */
+.activity-section h2 {
+  margin-bottom: 15px;
+}
+
+.activity-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.activity-section ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Responsive: sidebar collapses on small screens */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

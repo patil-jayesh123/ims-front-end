@@ -1,0 +1,77 @@
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background: #2c3e50;
+  color: white;
+  padding: 20px;
+  height: 600px;
+}
+
+.sidebar .logo {
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* LI styling */
+.sidebar ul li {
+  padding: 12px 10px;
+  margin: 8px 0;
+  background: #34495e;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Hover effect */
+.sidebar ul li:hover {
+  background: #1abc9c;
+}
+
+/* --- ADD THIS for removing link underline --- */
+.sidebar ul li a {
+  text-decoration: none;   /* underline off */
+  color: white;            /* text color */
+  display: block;          /* full li clickable */
+  width: 100%;
+  height: 100%;
+}
+
+/* Optional hover color inside link */
+.sidebar ul li:hover a {
+  color: white;  /* ensure text stays white */
+}
+
+/* Logout Button Stylish */
+.logout-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px 0;
+  background: #ff4b4b;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0px 4px 10px rgba(255, 75, 75, 0.4);
+}
+
+/* hover effect */
+.logout-btn:hover {
+  background: #ff1f1f;
+  box-shadow: 0px 6px 14px rgba(255, 31, 31, 0.6);
+  transform: translateY(-2px);
+}
+
+/* click effect */
+.logout-btn:active {
+  transform: scale(0.97);
+  box-shadow: none;
+}

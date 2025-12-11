@@ -1,0 +1,95 @@
+/* Full Page Background */
+.login-container {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #3f51b5, #5c6bc0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Login Box */
+.login-box {
+  width: 380px;
+  background: white;
+  padding: 40px 30px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: fadeIn 0.7s ease-in-out;
+}
+
+.login-box h2 {
+  font-size: 32px;
+  color: #283593;
+}
+
+.login-box p {
+  color: #555;
+  margin-bottom: 25px;
+}
+
+/* Inputs */
+.login-box input {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 2px solid #d4d4d4;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.login-box input:focus {
+  border-color: #3f51b5;
+}
+
+/* Button */
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 18px;
+  background: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #283593;
+}
+
+/* Extra links */
+.extra-links {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.extra-links a {
+  text-decoration: none;
+  color: #3f51b5;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.extra-links a:hover {
+  color: #283593;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

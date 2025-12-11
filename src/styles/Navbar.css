@@ -1,0 +1,66 @@
+/* Navbar */
+.ims-navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 60px;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.ims-navbar .logo {
+  font-size: 26px;
+  font-weight: 700;
+  color: #3f51b5;
+}
+
+.ims-navbar ul {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
+.ims-navbar li {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.ims-navbar li:hover {
+  color: #3f51b5;
+}
+
+
+.ims-navbar ul li a {
+  text-decoration: none;   /* underline hatane ke liye */
+  color: inherit;          /* link ka default blue color hatane ke liye */
+}
+
+.ims-navbar ul li a:hover {
+  color: #ffcc00;          /* hover color (optional — change kar sakte ho) */
+}
+
+/* Login Button */
+.login-btn {
+  padding: 10px 20px;
+  background: #3f51b5;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.3s;
+  font-size: 16px;
+}
+
+.login-btn:hover {
+  background: #283593;
+}
+
+/* Links container */
+.nav-links {
+  display: flex;
+  gap: 25px;            /* space between text */
+  list-style: none;
+  margin-left: auto;    /* pushes links to the right */
+  margin-right: 30px;   /* keeps space before Login button */
+}

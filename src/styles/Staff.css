@@ -1,0 +1,149 @@
+/* Container: sidebar + main content */
+.staff-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #2c3e50;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Sidebar links (if using same sidebar) */
+.sidebar .logo {
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 12px 10px;
+  margin: 8px 0;
+  background: #34495e;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sidebar ul li:hover {
+  background: #1abc9c;
+}
+
+/* Main content */
+.staff-content {
+  margin-left: 250px;
+  padding: 20px;
+  flex: 1;
+}
+
+/* Top bar */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.top-bar input {
+  padding: 10px;
+  width: 60%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.top-bar .add-btn {
+  background: #1abc9c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.top-bar .add-btn:hover {
+  background: #16a085;
+}
+
+/* Table */
+.staff-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.staff-table th,
+.staff-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.staff-table th {
+  background: #34495e;
+  color: white;
+}
+
+.staff-table td button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.staff-table .edit {
+  background: #3498db;
+  color: white;
+}
+
+.staff-table .edit:hover {
+  background: #2980b9;
+}
+
+.staff-table .delete {
+  background: #e74c3c;
+  color: white;
+}
+
+.staff-table .delete:hover {
+  background: #c0392b;
+}
+
+/* Responsive for small screens */
+@media (max-width: 768px) {
+  .staff-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .staff-content {
+    margin-left: 0;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .top-bar input {
+    width: 100%;
+  }
+}
