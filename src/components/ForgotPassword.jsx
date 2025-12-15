@@ -1,95 +1,71 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
 export default function ForgotPassword() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
-  const submit = async e => {
+  const submit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('https://ims-backend-p5hr.onrender.com/admin/forgot-password', { email });
-      alert(res.data.msg || 'Check response');
-      if (res.data.resetURL) alert('Dev reset URL: ' + res.data.resetURL);
+      const res = await axios.post(
+        "https://ims-backend-p5hr.onrender.com/admin/forgot-password",
+        { email }
+      );
+      alert(res.data.msg || "Check response");
+      if (res.data.resetURL) alert("Dev reset URL: " + res.data.resetURL);
     } catch (err) {
-      alert('Error');
+      alert("Error");
     }
   };
 
   return (
-    <div style={styles.container}>
-      <form onSubmit={submit} style={styles.form}>
-        <h2 style={styles.title}>Forgot Password</h2>
-        <p style={styles.subtitle}>Enter your email to receive a password reset link</p>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          required
-          style={styles.input}
-        />
-        <button type="submit" style={styles.button}>Send Reset Link</button>
-      </form>
+    <div className="d-flex justify-content-center align-items-center vh-100 bg-gradient">
+      <div
+        className="card shadow p-4"
+        style={{ maxWidth: "400px", width: "100%" }}
+      >
+        <h2 className="text-center mb-3">Forgot Password</h2>
+        <p className="text-center text-muted mb-4">
+          Enter your email to receive a password reset link
+        </p>
+
+        <form onSubmit={submit}>
+          <div className="mb-3">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="form-control"
+            />
+          </div>
+          <button type="submit" className="btn btn-primary w-100">
+            Send Reset Link
+          </button>
+          <p className="mb-0">
+            I have a password? <Link to="/login">Login</Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 }
 
-const styles = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    background: 'linear-gradient(to right, #667eea, #764ba2)',
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-  },
-  form: {
-    backgroundColor: '#fff',
-    padding: '40px 30px',
-    borderRadius: '12px',
-    boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
-    width: '100%',
-    maxWidth: '400px',
-    textAlign: 'center',
-  },
-  title: {
-    marginBottom: '10px',
-    color: '#333',
-  },
-  subtitle: {
-    marginBottom: '20px',
-    fontSize: '14px',
-    color: '#666',
-  },
-  input: {
-    width: '100%',
-    padding: '12px 15px',
-    marginBottom: '20px',
-    borderRadius: '8px',
-    border: '1px solid #ccc',
-    fontSize: '14px',
-    outline: 'none',
-    transition: '0.3s',
-  },
-  button: {
-    width: '100%',
-    padding: '12px',
-    borderRadius: '8px',
-    border: 'none',
-    backgroundColor: '#667eea',
-    color: '#fff',
-    fontSize: '16px',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    transition: '0.3s',
-  },
-};
-
-// Optional: Add hover effect
-styles.button[':hover'] = {
-  backgroundColor: '#5a67d8',
-};
-styles.input[':focus'] = {
-  borderColor: '#667eea',
-  boxShadow: '0 0 5px rgba(102, 126, 234, 0.5)',
-};
+// Optional: add a gradient background with CSS
+const styles = document.createElement("style");
+styles.innerHTML = `
+  .bg-gradient {
+    background: linear-gradient(to right, #667eea, #764ba2);
+  }
+  .btn-primary:hover {
+    background-color: #5a67d8;
+  }
+  .form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+  }
+`;
+document.head.appendChild(styles);

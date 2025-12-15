@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../styles/Courseform.css";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Courseform = () => {
   const navigate = useNavigate();
@@ -15,62 +15,79 @@ const Courseform = () => {
     e.preventDefault();
     try {
       await axios.post("https://ims-backend-p5hr.onrender.com/admin/savecourse", data);
-      alert("course added successfully");
-      console.log(data);
+      alert("Course added successfully");
       setData({ name: "", duration: "", instructor: "" });
       navigate("/admin/courses");
     } catch (err) {
       console.log(err);
+      alert("Failed to add course");
     }
   };
 
   return (
-    <div className="course-container">
-      <form className="course-form" onSubmit={(e) => savecourse(e)}>
-        <h2 className="form-title">Add New Course</h2>
+    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+      <div className="card p-4 shadow" style={{ maxWidth: "500px", width: "100%" }}>
+        <h2 className="text-center mb-4">Add New Course</h2>
 
-        {/* Course Name */}
-        <div className="form-group">
-          <label>Course Name</label>
-          <input
-            type="text"
-            placeholder="Enter course name"
-            id="name"
-            name="name"
-            value={data.name}
-            onChange={(e) => dataHandler(e)}
-          />
-        </div>
+        <form onSubmit={savecourse}>
+          {/* Course Name */}
+          <div className="mb-3">
+            <label htmlFor="name" className="form-label">
+              Course Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={data.name}
+              onChange={dataHandler}
+              className="form-control"
+              placeholder="Enter course name"
+              required
+            />
+          </div>
 
-        {/* Course Duration */}
-        <div className="form-group">
-          <label>Course Duration</label>
-          <input
-            type="text"
-            placeholder="e.g., 3 Months"
-            id="duration"
-            name="duration"
-            value={data.duration}
-            onChange={(e) => dataHandler(e)}
-          />
-        </div>
+          {/* Course Duration */}
+          <div className="mb-3">
+            <label htmlFor="duration" className="form-label">
+              Course Duration
+            </label>
+            <input
+              type="text"
+              id="duration"
+              name="duration"
+              value={data.duration}
+              onChange={dataHandler}
+              className="form-control"
+              placeholder="e.g., 3 Months"
+              required
+            />
+          </div>
 
-        {/* Instructor */}
-        <div className="form-group">
-          <label>Instructor Name</label>
-          <input
-            type="text"
-            placeholder="Enter instructor name"
-            id="instructor"
-            name="instructor"
-            value={data.instructor}
-            onChange={(e) => dataHandler(e)}
-          />
-        </div>
+          {/* Instructor */}
+          <div className="mb-3">
+            <label htmlFor="instructor" className="form-label">
+              Instructor Name
+            </label>
+            <input
+              type="text"
+              id="instructor"
+              name="instructor"
+              value={data.instructor}
+              onChange={dataHandler}
+              className="form-control"
+              placeholder="Enter instructor name"
+              required
+            />
+          </div>
 
-        {/* Button */}
-        <button className="submit-btn">Submit Course</button>
-      </form>
+          {/* Submit Button */}
+          <button type="submit" className="btn btn-primary w-100">
+            Submit Course
+          </button>
+          <p>I don't want to add a course <Link to="/admin/courses">click here</Link></p>
+        </form>
+      </div>
     </div>
   );
 };

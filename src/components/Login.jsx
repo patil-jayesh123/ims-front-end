@@ -1,8 +1,7 @@
-import React from "react";
-import "../styles/Login.css";
-import axios from "axios";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,60 +14,86 @@ const Login = () => {
   const loginuser = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://ims-backend-p5hr.onrender.com/admin/login", data);
+      const res = await axios.post(
+        "https://ims-backend-p5hr.onrender.com/admin/login",
+        data
+      );
       if (res.data.success) {
         alert(res.data.message);
-        console.log(res.data.data);
-        // save token in localStorage
         localStorage.setItem("token", res.data.token);
-        //redirect to dashbord
         navigate("/admin/dashboard");
-        console.log(res.data);
       }
     } catch (err) {
       console.log("login failed", err);
-      alert(err.response?.message || "login failed ❌");
+      alert(err.response?.message || "Login failed ❌");
     }
   };
 
   return (
-    <div className="login-container">
-      <div className="login-box">
-        <h2>Welcome Back</h2>
-        <p>Login to your account</p>
+    <div className="d-flex justify-content-center align-items-center vh-100 bg-gradient">
+      <div className="card p-4 shadow" style={{ maxWidth: "400px", width: "100%" }}>
+        {/* <h2 className="text-center mb-2">Welcome Back</h2> */}
+        <p className="text-center text-muted mb-4">Login to your account</p>
 
         <form onSubmit={loginuser}>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={data.email}
-            onChange={dataHandler}
-            placeholder="Enter Email"
-            required
-          />
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={data.password}
-            onChange={dataHandler}
-            placeholder="Enter Password"
-            required
-          />
+          <div className="mb-3">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={data.email}
+              onChange={dataHandler}
+              placeholder="Enter Email"
+              className="form-control"
+              required
+            />
+          </div>
 
-          <button type="submit" className="login-btn">
+          <div className="mb-3">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={data.password}
+              onChange={dataHandler}
+              placeholder="Enter Password"
+              className="form-control"
+              required
+            />
+          </div>
+
+          <button type="submit" className="btn btn-primary w-100 mb-3">
             Login
           </button>
         </form>
 
-        <div className="extra-links">
-          <Link to="/forgot">Forgot Password?</Link>
-          <Link to="/Signup">Create New Account</Link>
+        <div className="d-flex justify-content-between">
+          <Link to="/forgot" className="small text-decoration-none">
+            Forgot Password?
+          </Link>
+          <Link to="/Signup" className="small text-decoration-none">
+            Create New Account
+          </Link>
         </div>
       </div>
     </div>
   );
 };
+
+// Optional gradient background CSS
+const styles = document.createElement("style");
+styles.innerHTML = `
+  .bg-gradient {
+    background: linear-gradient(to right, #667eea, #764ba2);
+  }
+  .btn-primary:hover {
+    background-color: #5a67d8;
+  }
+  .form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+  }
+`;
+document.head.appendChild(styles);
 
 export default Login;

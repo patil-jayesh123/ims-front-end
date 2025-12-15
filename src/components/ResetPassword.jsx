@@ -6,11 +6,16 @@ export default function ResetPassword() {
   const [password, setPassword] = useState('');
   const { token } = useParams();
   const nav = useNavigate();
+  const [btnHover, setBtnHover] = useState(false);
+  const [inputFocus, setInputFocus] = useState(false);
 
   const submit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post('https://ims-backend-p5hr.onrender.com/admin/reset-password/' + token, { password });
+      const res = await axios.post(
+        'https://ims-backend-p5hr.onrender.com/admin/reset-password/' + token,
+        { password }
+      );
       alert(res.data.msg || 'Password reset successful');
       nav('/login');
     } catch (err) {
@@ -23,15 +28,33 @@ export default function ResetPassword() {
       <form onSubmit={submit} style={styles.form}>
         <h2 style={styles.title}>Reset Password</h2>
         <p style={styles.subtitle}>Enter your new password to continue</p>
+
         <input
           type="password"
           placeholder="New Password"
           value={password}
           onChange={e => setPassword(e.target.value)}
           required
-          style={styles.input}
+          style={{
+            ...styles.input,
+            borderColor: inputFocus ? '#667eea' : '#ccc',
+            boxShadow: inputFocus ? '0 0 5px rgba(102, 126, 234, 0.5)' : 'none'
+          }}
+          onFocus={() => setInputFocus(true)}
+          onBlur={() => setInputFocus(false)}
         />
-        <button type="submit" style={styles.button}>Reset Password</button>
+
+        <button
+          type="submit"
+          style={{
+            ...styles.button,
+            backgroundColor: btnHover ? '#5a67d8' : '#667eea'
+          }}
+          onMouseEnter={() => setBtnHover(true)}
+          onMouseLeave={() => setBtnHover(false)}
+        >
+          Reset Password
+        </button>
       </form>
     </div>
   );
@@ -42,13 +65,15 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100vh',
-    background: 'linear-gradient(to right, #667eea, #764ba2)', // Forgot password jaise
+    minHeight: '100vh',
+    padding: '20px', // responsive padding for small screens
+    background: 'linear-gradient(to right, #667eea, #764ba2)',
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    boxSizing: 'border-box'
   },
   form: {
     backgroundColor: '#fff',
-    padding: '40px 30px',
+    padding: '30px 20px',
     borderRadius: '12px',
     boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
     width: '100%',
@@ -58,10 +83,11 @@ const styles = {
   title: {
     marginBottom: '10px',
     color: '#333',
+    fontSize: 'clamp(20px, 4vw, 28px)', // responsive font
   },
   subtitle: {
     marginBottom: '20px',
-    fontSize: '14px',
+    fontSize: 'clamp(12px, 2.5vw, 16px)',
     color: '#666',
   },
   input: {
@@ -73,26 +99,17 @@ const styles = {
     fontSize: '14px',
     outline: 'none',
     transition: '0.3s',
+    boxSizing: 'border-box'
   },
   button: {
     width: '100%',
     padding: '12px',
     borderRadius: '8px',
     border: 'none',
-    backgroundColor: '#667eea',
     color: '#fff',
     fontSize: '16px',
     fontWeight: 'bold',
     cursor: 'pointer',
     transition: '0.3s',
   },
-};
-
-// Optional hover/focus effects
-styles.button[':hover'] = {
-  backgroundColor: '#5a67d8',
-};
-styles.input[':focus'] = {
-  borderColor: '#667eea',
-  boxShadow: '0 0 5px rgba(102, 126, 234, 0.5)',
 };
