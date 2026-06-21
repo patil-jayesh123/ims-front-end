@@ -131,13 +131,62 @@
 }
 
 /* Responsive */
+/* ==========================
+   MOBILE RESPONSIVE
+========================== */
 @media (max-width: 768px) {
+  .students-container {
+    flex-direction: column;
+  }
+
   .students-main {
     margin-left: 0;
-    padding: 80px 18px 24px;
+    padding: 20px 15px;
+    width: 100%;
+  }
+
+  .students-header {
+    text-align: center;
+  }
+
+  .students-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .students-header p {
+    font-size: 0.85rem;
   }
 
   .students-search {
     max-width: 100%;
+    width: 100%;
+  }
+
+  .add-student-btn {
+    width: 100%;
+  }
+
+  .students-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .students-table {
+    min-width: 650px;
+  }
+
+  .students-table th,
+  .students-table td {
+    white-space: nowrap;
+  }
+
+  .students-table td:last-child {
+    min-width: 140px;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    padding: 6px 10px;
+    font-size: 12px;
   }
 }

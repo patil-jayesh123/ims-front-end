@@ -1,0 +1,78 @@
+.cm-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  animation: cm-fade-in 0.15s ease-out;
+}
+
+.cm-dialog {
+  background: #fff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  margin: 1rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: cm-scale-in 0.18s ease-out;
+}
+
+.cm-body {
+  padding: 2rem 1.75rem;
+  text-align: center;
+}
+
+.cm-icon-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
+.cm-icon-danger {
+  background-color: #fde2e1;
+  color: #dc3545;
+}
+
+.cm-icon-primary {
+  background-color: #dce7ff;
+  color: #0d6efd;
+}
+
+.cm-icon-warning {
+  background-color: #fff3cd;
+  color: #997404;
+}
+
+.cm-title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.cm-message {
+  color: #6c757d;
+  margin-bottom: 1.75rem;
+}
+
+.cm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+@keyframes cm-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes cm-scale-in {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { toast } from "react-toastify";
 
 const EditStudent = () => {
   const { id } = useParams();
@@ -16,7 +17,9 @@ const EditStudent = () => {
   // Fetch student data
   const fetchStudent = async () => {
     try {
-      const res = await axios.get(`https://ims-backend-p5hr.onrender.com/admin/student/${id}`);
+      const res = await axios.get(
+        `https://ims-backend-p5hr.onrender.com/admin/student/${id}`,
+      );
       setData(res.data.student);
     } catch (err) {
       console.log(err);
@@ -34,12 +37,15 @@ const EditStudent = () => {
   const updateStudent = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`https://ims-backend-p5hr.onrender.com/admin/update/${id}`, data);
-      alert("Student updated successfully");
+      await axios.put(
+        `https://ims-backend-p5hr.onrender.com/admin/update/${id}`,
+        data,
+      );
+      toast.success("Student updated successfully");
       navigate("/admin/student");
     } catch (err) {
       console.log(err);
-      alert("Failed to update");
+      toast.error("Failed to update");
     }
   };
 
@@ -99,8 +105,12 @@ const EditStudent = () => {
 
               <button type="submit" className="btn btn-primary w-100">
                 Update Student
-              </button><br/>
-              <p>I don't want to update student <Link to="/admin/student">click here</Link></p>
+              </button>
+              <br />
+              <p>
+                I don't want to update student{" "}
+                <Link to="/admin/student">click here</Link>
+              </p>
             </form>
           </div>
         </div>

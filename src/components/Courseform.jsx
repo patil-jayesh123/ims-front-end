@@ -104,10 +104,10 @@
 
 // export default Courseform;
 
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Courseform.css";
+import { toast } from "react-toastify";
 
 const Courseform = ({ course, onClose, onSuccess }) => {
   const isEditMode = Boolean(course);
@@ -136,21 +136,23 @@ const Courseform = ({ course, onClose, onSuccess }) => {
       if (isEditMode) {
         await axios.put(
           `https://ims-backend-p5hr.onrender.com/admin/courseupdate/${course._id}`,
-          data
+          data,
         );
       } else {
         await axios.post(
           "https://ims-backend-p5hr.onrender.com/admin/savecourse",
-          data
+          data,
         );
         setData({ name: "", duration: "", instructor: "" });
       }
       onSuccess ? onSuccess() : onClose && onClose();
     } catch (err) {
       console.log(
-        isEditMode ? "Failed to update: " + err : "Failed to add course: " + err
+        isEditMode
+          ? "Failed to update: " + err
+          : "Failed to add course: " + err,
       );
-      alert(isEditMode ? "Failed to update course" : "Failed to add course");
+      toast.error(isEditMode ? "Failed to update course" : "Failed to add course");
     } finally {
       setSubmitting(false);
     }
@@ -230,8 +232,8 @@ const Courseform = ({ course, onClose, onSuccess }) => {
                   ? "Updating..."
                   : "Adding..."
                 : isEditMode
-                ? "Update Course"
-                : "Add Course"}
+                  ? "Update Course"
+                  : "Add Course"}
             </button>
           </div>
         </form>

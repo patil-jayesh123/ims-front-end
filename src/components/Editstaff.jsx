@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { toast } from "react-toastify";
 
 const Editstaff = () => {
   const { id } = useParams();
@@ -35,7 +36,7 @@ const Editstaff = () => {
     e.preventDefault();
     try {
       await axios.put(`https://ims-backend-p5hr.onrender.com/admin/updatestaff/${id}`, data);
-      alert("Staff updated successfully");
+      toast.success("Staff updated successfully");
       navigate("/admin/staff");
     } catch (err) {
       console.log("Failed to update", err);
