@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/Studentform.css";
 
-const Staffform = () => {
-  const navigate = useNavigate();
+const Staffform = ({ onClose, onSuccess }) => {
   const [data, setData] = useState({ name: "", department: "", email: "" });
+  const [submitting, setSubmitting] = useState(false);
 
   const dataHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -13,75 +12,90 @@ const Staffform = () => {
 
   const registerstaff = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
     try {
       await axios.post(
         "https://ims-backend-p5hr.onrender.com/admin/registerstaff",
         data
       );
-      alert("Staff added successfully");
       setData({ name: "", department: "", email: "" });
-      navigate("/admin/staff");
+      onSuccess ? onSuccess() : onClose && onClose();
     } catch (err) {
       console.log("Failed to register: " + err);
       alert("Failed to register staff");
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-      <div className="card p-4 shadow" style={{ maxWidth: "500px", width: "100%" }}>
-        <h2 className="text-center mb-3">Staff Registration</h2>
+    <div className="sf-overlay" onClick={onClose}>
+      <div className="sf-modal" onClick={(e) => e.stopPropagation()}>
+        <button className="sf-close" onClick={onClose} aria-label="Close">
+          &times;
+        </button>
 
-        <form onSubmit={registerstaff}>
-          <div className="mb-3">
-            <label htmlFor="name" className="form-label">
-              Name:
-            </label>
+        <div className="sf-header">
+          <h2>Add New Staff</h2>
+          <p>Fill in the details below to register a staff member</p>
+        </div>
+
+        <form onSubmit={registerstaff} className="sf-form">
+          <div className="sf-field">
+            <label htmlFor="name">Full Name</label>
             <input
               type="text"
               id="name"
               name="name"
+              placeholder="e.g. Priya Mehta"
               value={data.name}
               onChange={dataHandler}
-              className="form-control"
               required
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="department" className="form-label">
-              Department:
-            </label>
+          <div className="sf-field">
+            <label htmlFor="department">Department</label>
             <input
               type="text"
               id="department"
               name="department"
+              placeholder="e.g. Administration"
               value={data.department}
               onChange={dataHandler}
-              className="form-control"
               required
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email:
-            </label>
+          <div className="sf-field">
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               id="email"
               name="email"
+              placeholder="e.g. priya@example.com"
               value={data.email}
               onChange={dataHandler}
-              className="form-control"
               required
             />
           </div>
 
-          <button type="submit" className="btn btn-primary w-100">
-            Register
-          </button>
-          <p>I don't want to add staff <Link to="/admin/staff">click here</Link></p>
+          <div className="sf-actions">
+            <button
+              type="button"
+              className="sf-btn sf-btn-secondary"
+              onClick={onClose}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="sf-btn sf-btn-primary"
+              disabled={submitting}
+            >
+              {submitting ? "Adding..." : "Add Staff"}
+            </button>
+          </div>
         </form>
       </div>
     </div>

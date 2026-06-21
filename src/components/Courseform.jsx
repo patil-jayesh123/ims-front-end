@@ -1,91 +1,239 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import React, { useState } from "react";
+// import axios from "axios";
+// import "../styles/Courseform.css";
 
-const Courseform = () => {
-  const navigate = useNavigate();
+// const Courseform = ({ onClose, onSuccess }) => {
+//   const [data, setData] = useState({ name: "", duration: "", instructor: "" });
+//   const [submitting, setSubmitting] = useState(false);
+
+//   const dataHandler = (e) => {
+//     setData({ ...data, [e.target.name]: e.target.value });
+//   };
+
+//   const savecourse = async (e) => {
+//     e.preventDefault();
+//     setSubmitting(true);
+//     try {
+//       await axios.post(
+//         "https://ims-backend-p5hr.onrender.com/admin/savecourse",
+//         data,
+//       );
+//       setData({ name: "", duration: "", instructor: "" });
+//       onSuccess ? onSuccess() : onClose && onClose();
+//     } catch (err) {
+//       console.log(err);
+//       alert("Failed to add course");
+//     } finally {
+//       setSubmitting(false);
+//     }
+//   };
+
+//   return (
+//     <div className="sf-overlay" onClick={onClose}>
+//       <div className="sf-modal" onClick={(e) => e.stopPropagation()}>
+//         <button className="sf-close" onClick={onClose} aria-label="Close">
+//           &times;
+//         </button>
+
+//         <div className="sf-header">
+//           <h2>Add New Course</h2>
+//           <p>Fill in the details below to add a course</p>
+//         </div>
+
+//         <form onSubmit={savecourse} className="sf-form">
+//           <div className="sf-field">
+//             <label htmlFor="name">Course Name</label>
+//             <input
+//               type="text"
+//               id="name"
+//               name="name"
+//               placeholder="e.g. Web Development"
+//               value={data.name}
+//               onChange={dataHandler}
+//               required
+//             />
+//           </div>
+
+//           <div className="sf-field">
+//             <label htmlFor="duration">Duration</label>
+//             <input
+//               type="text"
+//               id="duration"
+//               name="duration"
+//               placeholder="e.g. 3 Months"
+//               value={data.duration}
+//               onChange={dataHandler}
+//               required
+//             />
+//           </div>
+
+//           <div className="sf-field">
+//             <label htmlFor="instructor">Instructor Name</label>
+//             <input
+//               type="text"
+//               id="instructor"
+//               name="instructor"
+//               placeholder="e.g. John Doe"
+//               value={data.instructor}
+//               onChange={dataHandler}
+//               required
+//             />
+//           </div>
+
+//           <div className="sf-actions">
+//             <button
+//               type="button"
+//               className="sf-btn sf-btn-secondary"
+//               onClick={onClose}
+//             >
+//               Cancel
+//             </button>
+//             <button
+//               type="submit"
+//               className="sf-btn sf-btn-primary"
+//               disabled={submitting}
+//             >
+//               {submitting ? "Adding..." : "Add Course"}
+//             </button>
+//           </div>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Courseform;
+
+
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "../styles/Courseform.css";
+
+const Courseform = ({ course, onClose, onSuccess }) => {
+  const isEditMode = Boolean(course);
+
   const [data, setData] = useState({ name: "", duration: "", instructor: "" });
+  const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (course) {
+      setData({
+        name: course.name || "",
+        duration: course.duration || "",
+        instructor: course.instructor || "",
+      });
+    }
+  }, [course]);
 
   const dataHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const savecourse = async (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
     try {
-      await axios.post("https://ims-backend-p5hr.onrender.com/admin/savecourse", data);
-      alert("Course added successfully");
-      setData({ name: "", duration: "", instructor: "" });
-      navigate("/admin/courses");
+      if (isEditMode) {
+        await axios.put(
+          `https://ims-backend-p5hr.onrender.com/admin/courseupdate/${course._id}`,
+          data
+        );
+      } else {
+        await axios.post(
+          "https://ims-backend-p5hr.onrender.com/admin/savecourse",
+          data
+        );
+        setData({ name: "", duration: "", instructor: "" });
+      }
+      onSuccess ? onSuccess() : onClose && onClose();
     } catch (err) {
-      console.log(err);
-      alert("Failed to add course");
+      console.log(
+        isEditMode ? "Failed to update: " + err : "Failed to add course: " + err
+      );
+      alert(isEditMode ? "Failed to update course" : "Failed to add course");
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-      <div className="card p-4 shadow" style={{ maxWidth: "500px", width: "100%" }}>
-        <h2 className="text-center mb-4">Add New Course</h2>
+    <div className="sf-overlay" onClick={onClose}>
+      <div className="sf-modal" onClick={(e) => e.stopPropagation()}>
+        <button className="sf-close" onClick={onClose} aria-label="Close">
+          &times;
+        </button>
 
-        <form onSubmit={savecourse}>
-          {/* Course Name */}
-          <div className="mb-3">
-            <label htmlFor="name" className="form-label">
-              Course Name
-            </label>
+        <div className="sf-header">
+          <h2>{isEditMode ? "Update Course" : "Add New Course"}</h2>
+          <p>
+            {isEditMode
+              ? "Edit the details below and save your changes"
+              : "Fill in the details below to add a course"}
+          </p>
+        </div>
+
+        <form onSubmit={submitHandler} className="sf-form">
+          <div className="sf-field">
+            <label htmlFor="name">Course Name</label>
             <input
               type="text"
               id="name"
               name="name"
+              placeholder="e.g. Web Development"
               value={data.name}
               onChange={dataHandler}
-              className="form-control"
-              placeholder="Enter course name"
               required
             />
           </div>
 
-          {/* Course Duration */}
-          <div className="mb-3">
-            <label htmlFor="duration" className="form-label">
-              Course Duration
-            </label>
+          <div className="sf-field">
+            <label htmlFor="duration">Duration</label>
             <input
               type="text"
               id="duration"
               name="duration"
+              placeholder="e.g. 3 Months"
               value={data.duration}
               onChange={dataHandler}
-              className="form-control"
-              placeholder="e.g., 3 Months"
               required
             />
           </div>
 
-          {/* Instructor */}
-          <div className="mb-3">
-            <label htmlFor="instructor" className="form-label">
-              Instructor Name
-            </label>
+          <div className="sf-field">
+            <label htmlFor="instructor">Instructor Name</label>
             <input
               type="text"
               id="instructor"
               name="instructor"
+              placeholder="e.g. John Doe"
               value={data.instructor}
               onChange={dataHandler}
-              className="form-control"
-              placeholder="Enter instructor name"
               required
             />
           </div>
 
-          {/* Submit Button */}
-          <button type="submit" className="btn btn-primary w-100">
-            Submit Course
-          </button>
-          <p>I don't want to add a course <Link to="/admin/courses">click here</Link></p>
+          <div className="sf-actions">
+            <button
+              type="button"
+              className="sf-btn sf-btn-secondary"
+              onClick={onClose}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="sf-btn sf-btn-primary"
+              disabled={submitting}
+            >
+              {submitting
+                ? isEditMode
+                  ? "Updating..."
+                  : "Adding..."
+                : isEditMode
+                ? "Update Course"
+                : "Add Course"}
+            </button>
+          </div>
         </form>
       </div>
     </div>

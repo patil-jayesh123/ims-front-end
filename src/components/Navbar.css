@@ -1,0 +1,77 @@
+.custom-navbar {
+  background: #ffffff;
+  border-bottom: 1px solid #eef0f3;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Logo */
+.logo-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background: linear-gradient(135deg, #f5f5f7, #7c3aed); */
+  font-size: 1rem;
+}
+
+.logo-text {
+  color: #1f2937;
+  letter-spacing: 0.3px;
+}
+
+/* Nav links */
+.custom-link {
+  position: relative;
+  color: #4b5563 !important;
+  font-weight: 500;
+  padding: 8px 4px !important;
+  margin: 0 6px;
+  transition: color 0.2s ease;
+}
+
+.custom-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background: #7c3aed;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  transform: translateX(-50%);
+}
+
+.custom-link:hover {
+  color: #1f2937 !important;
+}
+
+.custom-link:hover::after {
+  width: 60%;
+}
+
+.custom-link.active {
+  color: #4f46e5 !important;
+}
+
+.custom-link.active::after {
+  width: 60%;
+}
+
+/* Admin button */
+.admin-btn {
+  background: linear-gradient(135deg, #817afe, #88a0ff);
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-btn:hover {
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+}

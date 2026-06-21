@@ -2,24 +2,32 @@
 .dashboard-container {
   display: flex;
   min-height: 100vh;
+  background: #f4f6fb;
+  font-family: "Poppins", "Segoe UI", sans-serif;
 }
 
 /* Sidebar styles (reuse from your Sidebar.css or keep here for dashboard) */
 .sidebar {
   width: 250px;
-  background: #2c3e50;
+  background: linear-gradient(180deg, #1e2433, #161b27);
   color: white;
-  padding: 20px;
+  padding: 24px 18px;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
 }
 
 .sidebar .logo {
   font-size: 22px;
-  margin-bottom: 20px;
+  font-weight: 700;
+  margin-bottom: 28px;
   text-align: center;
+  background: linear-gradient(135deg, #818cf8, #c4b5fd);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .sidebar ul {
@@ -28,27 +36,35 @@
 }
 
 .sidebar ul li {
-  padding: 12px 10px;
+  padding: 12px 14px;
   margin: 8px 0;
-  background: #34495e;
-  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.25s ease;
 }
 
 .sidebar ul li:hover {
-  background: #1abc9c;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  border-color: transparent;
+  transform: translateX(2px);
 }
 
 .sidebar ul li a {
   text-decoration: none;
-  color: white;
+  color: rgba(255, 255, 255, 0.85);
   display: block;
+  font-weight: 500;
+}
+
+.sidebar ul li:hover a {
+  color: #ffffff;
 }
 
 /* Main Dashboard Content */
 .main-content {
-  margin-left: 250px; /* leave space for sidebar */
+  margin-left: 250px;
   padding: 20px;
   flex: 1;
 }
@@ -56,10 +72,12 @@
 /* Dashboard header */
 .dashboard-header h1 {
   margin-bottom: 5px;
+  font-weight: 700;
+  color: #1f2937;
 }
 
 .dashboard-header p {
-  color: #555;
+  color: #6b7280;
   margin-bottom: 20px;
 }
 
@@ -71,26 +89,55 @@
   margin-bottom: 30px;
 }
 
-.stat-card {
-  background: #1abc9c;
-  color: white;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  transition: 0.3s;
+.stats-grid .card {
+  border: 1px solid #eef0f3;
+  border-radius: 12px;
+  box-shadow: none !important;
+  transition: 0.2s ease;
 }
 
-.stat-card:hover {
-  background: #16a085;
+.stats-grid .card:hover {
+  border-color: #ddd6fe;
 }
 
-.stat-card h3 {
-  margin-bottom: 10px;
+.stats-grid .card-body {
+  padding: 22px 18px;
+}
+
+.stats-grid .card h3 {
+  font-weight: 700;
+  font-size: 1.9rem;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.stats-grid .card p {
+  color: #6b7280;
+  font-weight: 500;
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+/* Simple colored left border per card instead of icon chips */
+.stats-grid .col-6:nth-child(1) .card {
+  border-left: 3px solid #4f46e5;
+}
+.stats-grid .col-6:nth-child(2) .card {
+  border-left: 3px solid #7c3aed;
+}
+.stats-grid .col-6:nth-child(3) .card {
+  border-left: 3px solid #2563eb;
+}
+.stats-grid .col-6:nth-child(4) .card {
+  border-left: 3px solid #db2777;
 }
 
 /* Recent Activity */
 .activity-section h2 {
   margin-bottom: 15px;
+  font-weight: 700;
+  color: #1f2937;
+  font-size: 1.15rem;
 }
 
 .activity-section ul {
@@ -98,9 +145,31 @@
   padding: 0;
 }
 
-.activity-section ul li {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+.activity-section .list-group-item {
+  padding: 14px 18px;
+  border: none;
+  border-bottom: 1px solid #f1f2f6;
+  background: #ffffff;
+  color: #374151;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.activity-section .list-group-item:first-child {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.activity-section .list-group-item:last-child {
+  border-bottom: none;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.activity-section ul {
+  border: 1px solid #eef0f3;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 /* Responsive: sidebar collapses on small screens */

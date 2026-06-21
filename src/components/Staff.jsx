@@ -1,24 +1,159 @@
+// import React, { useEffect, useState } from "react";
+// import Sidebar from "./Sidebar";
+// import { NavLink, useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import "bootstrap/dist/css/bootstrap.min.css";
+
+// function Staff() {
+//   const navigate = useNavigate();
+//   const [data, setData] = useState([]);
+//   const [search, setSearch] = useState("");
+
+//   const fetchData = async () => {
+//     try {
+//       const token = localStorage.getItem("token");
+//       const result = await axios.get(
+//         "https://ims-backend-p5hr.onrender.com/admin/staff",
+//         { headers: { Authorization: `Bearer ${token}` } }
+//       );
+//       setData(result.data);
+//     } catch (err) {
+//       console.log("Failed to fetch data", err);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchData();
+//   }, []);
+
+//   const deleteStaff = async (id) => {
+//     if (window.confirm("Are you sure you want to delete this staff member?")) {
+//       const token = localStorage.getItem("token");
+//       try {
+//         await axios.delete(`https://ims-backend-p5hr.onrender.com/admin/staffdelete/${id}`, {
+//           headers: { Authorization: `Bearer ${token}` },
+//         });
+//         alert("Staff member deleted successfully");
+//         fetchData();
+//       } catch (err) {
+//         console.log(err);
+//         alert("Failed to delete staff member");
+//       }
+//     }
+//   };
+
+//   const filteredData = data.filter((staff) =>
+//     (staff?.name || "").toLowerCase().includes((search || "").toLowerCase())
+//   );
+
+//   return (
+//     <div className="container">
+//       <div className="row">
+//         {/* Sidebar */}
+//         <div className="col-12 col-md-3 col-lg-2 p-0 bg-light">
+//           <Sidebar />
+//         </div>
+
+//         {/* Main Content */}
+//         <div className="col-12 col-md-9 col-lg-10 p-4">
+//           <h1 className="mb-4">Staff Management</h1>
+
+//           {/* Top Bar */}
+//           <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-2">
+//             <input
+//               type="text"
+//               className="form-control w-100 w-md-50"
+//               placeholder="Search staff..."
+//               value={search}
+//               onChange={(e) => setSearch(e.target.value)}
+//             />
+//             <button className="btn btn-primary" onClick={() => navigate("/admin/staffform")}>
+//               + Add Staff
+//             </button>
+//           </div>
+
+//           {/* Staff Table */}
+//           <div className="table-responsive">
+//             <table className="table table-bordered table-hover">
+//               <thead className="table-light">
+//                 <tr>
+//                   <th>#</th>
+//                   <th>Name</th>
+//                   <th>Department</th>
+//                   <th>Email</th>
+//                   <th>Action</th>
+//                 </tr>
+//               </thead>
+
+//               <tbody>
+//                 {filteredData.length === 0 ? (
+//                   <tr>
+//                     <td colSpan="5" className="text-center">
+//                       Data Not Found
+//                     </td>
+//                   </tr>
+//                 ) : (
+//                   filteredData.map((val, index) => (
+//                     <tr key={val._id || index}>
+//                       <td>{index + 1}</td>
+//                       <td>{val.name}</td>
+//                       <td>{val.department}</td>
+//                       <td>{val.email}</td>
+//                       <td className="d-flex gap-2">
+//                         <NavLink to={`/admin/editstaff/${val._id}`}>
+//                           <button className="btn btn-sm btn-warning">Edit</button>
+//                         </NavLink>
+//                         <button
+//                           className="btn btn-sm btn-danger"
+//                           onClick={() => deleteStaff(val._id)}
+//                         >
+//                           Delete
+//                         </button>
+//                       </td>
+//                     </tr>
+//                   ))
+//                 )}
+//               </tbody>
+//             </table>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default Staff;
+
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/Staff.css";
+import Staffform from "./Staffform";
 
 function Staff() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   const fetchData = async () => {
+    setLoading(true);
+
     try {
       const token = localStorage.getItem("token");
       const result = await axios.get(
         "https://ims-backend-p5hr.onrender.com/admin/staff",
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       setData(result.data);
     } catch (err) {
       console.log("Failed to fetch data", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -30,94 +165,112 @@ function Staff() {
     if (window.confirm("Are you sure you want to delete this staff member?")) {
       const token = localStorage.getItem("token");
       try {
-        await axios.delete(`https://ims-backend-p5hr.onrender.com/admin/staffdelete/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        alert("Staff member deleted successfully");
+        await axios.delete(
+          `https://ims-backend-p5hr.onrender.com/admin/staffdelete/${id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
+        toast.success("Staff member deleted successfully");
         fetchData();
       } catch (err) {
         console.log(err);
-        alert("Failed to delete staff member");
+        toast.error("Failed to delete staff member");
       }
     }
   };
 
   const filteredData = data.filter((staff) =>
-    (staff?.name || "").toLowerCase().includes((search || "").toLowerCase())
+    (staff?.name || "").toLowerCase().includes((search || "").toLowerCase()),
   );
 
   return (
-    <div className="container">
-      <div className="row">
-        {/* Sidebar */}
-        <div className="col-12 col-md-3 col-lg-2 p-0 bg-light">
-          <Sidebar />
+    <div className="students-container">
+      <Sidebar />
+
+      <main className="students-main">
+        <header className="students-header">
+          <h1>Staff Management</h1>
+          <p>View, search, and manage all staff members</p>
+        </header>
+
+        {/* Top Bar */}
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-2">
+          <input
+            type="text"
+            className="form-control students-search"
+            placeholder="🔍 Search staff..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button
+  className="btn add-student-btn"
+  onClick={() => setShowForm(true)}
+>
+  + Add Staff
+</button>
         </div>
 
-        {/* Main Content */}
-        <div className="col-12 col-md-9 col-lg-10 p-4">
-          <h1 className="mb-4">Staff Management</h1>
+        {/* Staff Table */}
+        <div className="table-responsive students-table-wrapper">
+          <table className="table students-table mb-0">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Email</th>
+                <th>Action</th>
+              </tr>
+            </thead>
 
-          {/* Top Bar */}
-          <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-2">
-            <input
-              type="text"
-              className="form-control w-100 w-md-50"
-              placeholder="Search staff..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <button className="btn btn-primary" onClick={() => navigate("/admin/staffform")}>
-              + Add Staff
-            </button>
-          </div>
-
-          {/* Staff Table */}
-          <div className="table-responsive">
-            <table className="table table-bordered table-hover">
-              <thead className="table-light">
+            <tbody>
+              {loading ? (
                 <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>Department</th>
-                  <th>Email</th>
-                  <th>Action</th>
+                  <td colSpan="5" className="text-center py-4 text-muted">
+                    Loading staff members...
+                  </td>
                 </tr>
-              </thead>
-
-              <tbody>
-                {filteredData.length === 0 ? (
-                  <tr>
-                    <td colSpan="5" className="text-center">
-                      Data Not Found
+              ) : filteredData.length === 0 ? (
+                <tr>
+                  <td colSpan="5" className="text-center py-4 text-muted">
+                    No staff members found
+                  </td>
+                </tr>
+              ) : (
+                filteredData.map((val, index) => (
+                  <tr key={val._id || index}>
+                    <td>{index + 1}</td>
+                    <td className="fw-semibold">{val.name}</td>
+                    <td>{val.department}</td>
+                    <td>{val.email}</td>
+                    <td className="d-flex gap-2">
+                      <NavLink to={`/admin/editstaff/${val._id}`}>
+                        <button className="btn btn-sm edit-btn">Edit</button>
+                      </NavLink>
+                      <button
+                        className="btn btn-sm delete-btn"
+                        onClick={() => deleteStaff(val._id)}
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
-                ) : (
-                  filteredData.map((val, index) => (
-                    <tr key={val._id || index}>
-                      <td>{index + 1}</td>
-                      <td>{val.name}</td>
-                      <td>{val.department}</td>
-                      <td>{val.email}</td>
-                      <td className="d-flex gap-2">
-                        <NavLink to={`/admin/editstaff/${val._id}`}>
-                          <button className="btn btn-sm btn-warning">Edit</button>
-                        </NavLink>
-                        <button
-                          className="btn btn-sm btn-danger"
-                          onClick={() => deleteStaff(val._id)}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
-      </div>
+      </main>
+      {showForm && (
+  <Staffform
+    onClose={() => setShowForm(false)}
+    onSuccess={() => {
+      setShowForm(false);
+      fetchData();
+    }}
+  />
+)}
     </div>
   );
 }

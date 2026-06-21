@@ -1,7 +1,9 @@
 import React from "react";
 import "../styles/Course.css"; // Optional custom styles
 
+
 function Course() {
+
   return (
     <div className="courses-page container py-5">
       {/* Header */}
