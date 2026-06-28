@@ -5,6 +5,7 @@ import "../styles/Course.css";
 function Course() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const fetchPublicCourses = async () => {
@@ -12,7 +13,6 @@ function Course() {
         const result = await axios.get(
           "https://ims-backend-p5hr.onrender.com/admin/courses"
         );
-        // Only show courses marked as public
         const publicCourses = result.data.filter((c) => c.isPublic);
         setCourses(publicCourses);
       } catch (err) {
@@ -24,50 +24,71 @@ function Course() {
     fetchPublicCourses();
   }, []);
 
-  return (
-    <div className="courses-page container py-5">
-      {/* Header */}
-      <header className="courses-header mb-4 text-center">
-        <h1>Courses</h1>
-        <p className="text-muted">Explore our available courses</p>
-      </header>
+  const filteredData = courses.filter((course) =>
+    (course?.name || "").toLowerCase().includes((search || "").toLowerCase())
+  );
 
-      {/* Responsive Table */}
-      <div className="table-responsive">
-        <table className="table table-striped table-hover">
-          <thead className="table-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Course Name</th>
-              <th scope="col">Duration</th>
-              <th scope="col">Instructor</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
+  return (
+    <div className="course-page">
+      <div className="course-page__inner">
+
+        {/* Header */}
+        <header className="course-page__header">
+          <h1 className="course-page__title">Courses</h1>
+          <p className="course-page__subtitle">Explore our available courses</p>
+        </header>
+
+        {/* Search */}
+        <div className="course-page__search-wrap">
+          <input
+            type="text"
+            className="course-page__search"
+            placeholder="🔍 Search course..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
+        {/* Table */}
+        <div className="course-page__table-wrap">
+          <table className="course-page__table">
+            <thead>
               <tr>
-                <td colSpan="4" className="text-center py-4 text-muted">
-                  Loading courses...
-                </td>
+                <th>#</th>
+                <th>Course Name</th>
+                <th>Duration</th>
+                <th>Instructor</th>
               </tr>
-            ) : courses.length === 0 ? (
-              <tr>
-                <td colSpan="4" className="text-center py-4 text-muted">
-                  No courses available at the moment.
-                </td>
-              </tr>
-            ) : (
-              courses.map((course, index) => (
-                <tr key={course._id || index}>
-                  <th scope="row">{index + 1}</th>
-                  <td>{course.name}</td>
-                  <td>{course.duration}</td>
-                  <td>{course.instructor}</td>
+            </thead>
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td colSpan="4" className="course-page__state">
+                    Loading courses...
+                  </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : filteredData.length === 0 ? (
+                <tr>
+                  <td colSpan="4" className="course-page__state">
+                    {search
+                      ? "No courses match your search."
+                      : "No courses available at the moment."}
+                  </td>
+                </tr>
+              ) : (
+                filteredData.map((val, index) => (
+                  <tr key={val._id || index}>
+                    <td>{index + 1}</td>
+                    <td className="course-page__name">{val.name}</td>
+                    <td>{val.duration}</td>
+                    <td>{val.instructor}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </div>
   );

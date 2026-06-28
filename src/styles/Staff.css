@@ -1,177 +1,218 @@
 /* ============================================================
-   STUDENTS PAGE — sidebar-aware layout + table styles
+   SHARED FORM MODAL — Courseform / Studentform / Staffform
+   All three use .sf-* classes — fully theme-aware
    ============================================================ */
 
-.students-container {
+/* ── Overlay ── */
+.sf-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--admin-form-overlay);
+  backdrop-filter: blur(3px);
   display: flex;
-  min-height: 100vh;
-  background: var(--admin-page-bg);
-  font-family: "Poppins", "Segoe UI", sans-serif;
-  transition: background 0.25s ease;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  padding: 1rem;
+  animation: sf-fade-in 0.15s ease-out;
 }
 
-.students-main {
-  padding: 88px 28px 28px;
-  flex: 1;
-  transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+/* ── Modal box ── */
+.sf-modal {
+  background: var(--admin-form-bg);
+  border: 1px solid var(--admin-border);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 440px;
+  padding: 2rem 1.75rem 1.75rem;
+  position: relative;
+  box-shadow: var(--admin-shadow-md);
+  animation: sf-pop-in 0.2s ease-out;
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
-@media (min-width: 768px) {
-  .students-main            { margin-left: 250px; }
-  .students-main--collapsed { margin-left: 64px;  }
+/* ── Close button ── */
+.sf-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--admin-hover);
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--admin-text-muted);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-@media (max-width: 767px) {
-  .students-main,
-  .students-main--collapsed {
-    margin-left: 0;
-    padding: 80px 16px 24px;
-  }
+.sf-close:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+  color: #ef4444;
 }
 
-.students-header h1 {
-  font-size: 1.7rem;
+/* ── Header ── */
+.sf-header {
+  text-align: center;
+  margin-bottom: 1.6rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.sf-header h2 {
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--admin-text-primary);
-  margin-bottom: 2px;
+  margin-bottom: 0.25rem;
 }
 
-.students-header p {
+.sf-header p {
+  font-size: 0.85rem;
   color: var(--admin-text-muted);
-  font-size: 0.9rem;
-  margin-bottom: 24px;
+  margin: 0;
 }
 
-/* Search input */
-.students-search {
-  max-width: 320px;
-  border-radius: 10px;
+/* ── Form ── */
+.sf-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+/* ── Field ── */
+.sf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.sf-field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--admin-text-primary);
+  letter-spacing: 0.02em;
+}
+
+.sf-field input,
+.sf-field select {
   border: 1.5px solid var(--admin-input-border);
-  padding: 10px 14px;
+  border-radius: 10px;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.9rem;
   background: var(--admin-input-bg);
   color: var(--admin-input-text);
-  transition: border-color 0.2s ease, background 0.25s ease;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease,
+              background 0.25s ease, color 0.25s ease;
 }
 
-.students-search::placeholder {
+.sf-field input::placeholder,
+.sf-field select::placeholder {
   color: var(--admin-input-placeholder);
 }
 
-.students-search:focus {
-  outline: none;
+.sf-field input:focus,
+.sf-field select:focus {
   border-color: var(--admin-accent);
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
-/* Add button */
-.add-student-btn {
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
-  color: #fff;
-  font-weight: 600;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 20px;
-  white-space: nowrap;
-  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
-  transition: 0.2s ease;
-}
-
-.add-student-btn:hover {
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.4);
-}
-
-/* Table card wrapper */
-.students-table-wrapper {
-  background: var(--admin-card-bg);
-  border-radius: 16px;
+/* ── Checkbox field (isPublic) ── */
+.sf-field--checkbox {
+  background: var(--admin-hover);
   border: 1px solid var(--admin-border);
-  box-shadow: var(--admin-shadow-sm);
-  overflow: hidden;
-  transition: background 0.25s ease;
+  border-radius: 10px;
+  padding: 12px 14px;
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
-.students-table { margin-bottom: 0; }
+.sf-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--admin-text-primary);
+  margin-bottom: 4px;
+  font-size: 0.88rem;
+}
 
-.students-table thead { background: var(--admin-table-head-bg); }
+.sf-checkbox-label input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--admin-accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
 
-.students-table thead th {
-  border: none;
-  padding: 14px 16px;
+.sf-checkbox-hint {
+  margin: 0;
   font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
   color: var(--admin-text-muted);
+  padding-left: 27px;
+}
+
+/* ── Actions ── */
+.sf-actions {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 0.5rem;
+}
+
+.sf-btn {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
   font-weight: 600;
-}
-
-.students-table tbody td {
-  padding: 14px 16px;
-  vertical-align: middle;
-  border-color: var(--admin-table-border);
-  color: var(--admin-table-text);
-  font-size: 0.92rem;
-  background: var(--admin-card-bg);
-  transition: background 0.25s ease;
-}
-
-.students-table tbody tr:hover td {
-  background: var(--admin-table-row-hover);
-}
-
-/* Action buttons */
-.edit-btn {
-  background: #fef3c7;
-  color: #b45309;
   border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  padding: 6px 14px;
-  transition: 0.2s ease;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.1s ease, background 0.2s ease;
 }
 
-.edit-btn:hover {
-  background: #fde68a;
-  color: #92400e;
+.sf-btn:active {
+  transform: scale(0.98);
 }
 
-[data-theme="dark"] .edit-btn {
-  background: rgba(251, 191, 36, 0.15);
-  color: #fbbf24;
+.sf-btn-primary {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
 }
 
-[data-theme="dark"] .edit-btn:hover {
-  background: rgba(251, 191, 36, 0.25);
+.sf-btn-primary:hover {
+  opacity: 0.92;
 }
 
-.delete-btn {
-  background: #fee2e2;
-  color: #b91c1c;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  padding: 6px 14px;
-  transition: 0.2s ease;
+.sf-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-.delete-btn:hover {
-  background: #fecaca;
-  color: #991b1b;
+.sf-btn-secondary {
+  background: var(--admin-hover);
+  color: var(--admin-text-primary);
+  border: 1px solid var(--admin-border);
 }
 
-[data-theme="dark"] .delete-btn {
-  background: rgba(239, 68, 68, 0.15);
-  color: #f87171;
+.sf-btn-secondary:hover {
+  background: var(--admin-border);
 }
 
-[data-theme="dark"] .delete-btn:hover {
-  background: rgba(239, 68, 68, 0.25);
+/* ── Animations ── */
+@keyframes sf-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-@media (max-width: 767px) {
-  .students-search    { max-width: 100%; width: 100%; }
-  .add-student-btn    { width: 100%; }
-  .students-table-wrapper { overflow-x: auto; }
-  .students-table     { min-width: 600px; }
+@keyframes sf-pop-in {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);    }
 }
