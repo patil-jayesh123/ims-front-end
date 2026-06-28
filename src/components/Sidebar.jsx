@@ -9,7 +9,7 @@ const NAV_ITEMS = [
   { to: "/admin/dashboard", label: "Dashboard", icon: "📊" },
   { to: "/admin/student",   label: "Students",  icon: "👨‍🎓" },
   { to: "/admin/courses",   label: "Courses",   icon: "📚" },
-  { to: "/admin/staff",     label: "Staff",     icon: "🧑‍🏫" },
+  { to: "/admin/staff",     label: "Staff",     icon: "🧑" },
 ];
 
 function Sidebar() {
@@ -58,10 +58,10 @@ function Sidebar() {
           </ul>
         </nav>
 
-        <button className="logout-btn" onClick={() => setShowConfirm(true)}>
+        {/* <button className="logout-btn" onClick={() => setShowConfirm(true)}>
           <span className="sidebar__item-icon">🚪</span>
           <span className="sidebar__item-label">Logout</span>
-        </button>
+        </button> */}
 
         <ConfirmModal
           show={showConfirm}
