@@ -1,7 +1,9 @@
 /* ============================================================
-   STUDENTS PAGE — sidebar-aware layout + table styles
+   IMS SHARED — Grid / Card view + responsive layout
+   Used across Students.css, Staff.css, Courses.css
    ============================================================ */
 
+/* ── Page shell ── */
 .students-container {
   display: flex;
   min-height: 100vh;
@@ -29,6 +31,7 @@
   }
 }
 
+/* ── Page header ── */
 .students-header h1 {
   font-size: 1.7rem;
   font-weight: 700;
@@ -39,34 +42,60 @@
 .students-header p {
   color: var(--admin-text-muted);
   font-size: 0.9rem;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+}
+
+/* ── Top bar ── */
+.ims-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.ims-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+@media (max-width: 575px) {
+  .ims-topbar { flex-direction: column; align-items: stretch; }
+  .ims-topbar-right { margin-left: 0; justify-content: space-between; }
 }
 
 /* Search input */
 .students-search {
+  flex: 1;
+  min-width: 180px;
   max-width: 320px;
   border-radius: 10px;
   border: 1.5px solid var(--admin-input-border);
   padding: 10px 14px;
   background: var(--admin-input-bg);
   color: var(--admin-input-text);
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
   transition: border-color 0.2s ease, background 0.25s ease;
 }
 
-.students-search::placeholder {
-  color: var(--admin-input-placeholder);
-}
-
+.students-search::placeholder { color: var(--admin-input-placeholder); }
 .students-search:focus {
-  outline: none;
   border-color: var(--admin-accent);
   box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+
+@media (max-width: 575px) {
+  .students-search { max-width: 100%; }
 }
 
 /* Add button */
 .add-student-btn {
   background: linear-gradient(135deg, #4f46e5, #7c3aed);
-  color: #fff;
+  color: #fff !important;
   font-weight: 600;
   border: none;
   border-radius: 10px;
@@ -75,21 +104,290 @@
   box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
   transition: 0.2s ease;
 }
-
 .add-student-btn:hover {
-  color: #fff;
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(124, 58, 237, 0.4);
 }
 
-/* Table card wrapper */
-.students-table-wrapper {
+/* ── View toggle ── */
+.view-toggle {
+  display: flex;
+  background: var(--admin-hover);
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.view-toggle-btn {
+  background: none;
+  border: none;
+  padding: 7px 11px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--admin-text-muted);
+  transition: background 0.15s, color 0.15s;
+  line-height: 1;
+}
+
+.view-toggle-btn.active {
+  background: var(--admin-accent);
+  color: #fff;
+}
+
+.view-toggle-btn:not(.active):hover {
+  background: var(--admin-border);
+  color: var(--admin-text-primary);
+}
+
+/* ── Count badge ── */
+.ims-count {
+  font-size: 0.82rem;
+  color: var(--admin-text-muted);
+  margin-bottom: 16px;
+}
+
+/* ── GRID LAYOUT ── */
+.ims-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+@media (max-width: 480px) {
+  .ims-grid { grid-template-columns: 1fr; }
+}
+
+/* ── STUDENT / STAFF CARD ── */
+.ims-card {
+  background: var(--admin-card-bg);
+  border: 1px solid var(--admin-border);
+  border-radius: 16px;
+  padding: 22px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  box-shadow: var(--admin-shadow-sm);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.25s ease;
+}
+
+.ims-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--admin-shadow-md);
+}
+
+/* Avatar circle */
+.ims-card-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+
+/* Small avatar used in table rows */
+.ims-table-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.ims-card-body {
+  text-align: center;
+  width: 100%;
+}
+
+.ims-card-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+  margin: 0 0 8px;
+}
+
+.ims-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+/* ── Badges ── */
+.ims-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  white-space: nowrap;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ims-badge-purple {
+  background: rgba(99, 102, 241, 0.12);
+  color: #6366f1;
+}
+[data-theme="dark"] .ims-badge-purple { background: rgba(99,102,241,0.2); color: #a5b4fc; }
+
+.ims-badge-blue {
+  background: rgba(14, 165, 233, 0.1);
+  color: #0ea5e9;
+}
+[data-theme="dark"] .ims-badge-blue { background: rgba(14,165,233,0.2); color: #7dd3fc; }
+
+.ims-badge-gray {
+  background: var(--admin-hover);
+  color: var(--admin-text-muted);
+  border: 1px solid var(--admin-border);
+}
+
+/* ── Card action buttons ── */
+.ims-card-actions {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.ims-card-actions .btn {
+  flex: 1;
+  font-size: 0.8rem;
+}
+
+/* ── COURSE CARDS ── */
+.ims-grid-courses {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.ims-course-card {
+  background: var(--admin-card-bg);
+  border: 1px solid var(--admin-border);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--admin-shadow-sm);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.25s ease;
+}
+
+.ims-course-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--admin-shadow-md);
+}
+
+.ims-course-banner {
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  position: relative;
+}
+
+.ims-course-icon {
+  font-size: 2rem;
+}
+
+.ims-visibility-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+.ims-visibility-badge.public  { background: rgba(16,185,129,0.25); }
+.ims-visibility-badge.private { background: rgba(0,0,0,0.2); }
+
+.ims-course-body {
+  padding: 14px 16px 10px;
+  flex: 1;
+}
+
+.ims-course-name {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+  margin-bottom: 10px;
+}
+
+.ims-course-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ims-course-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.82rem;
+  color: var(--admin-text-muted);
+}
+
+.meta-icon { font-size: 0.85rem; }
+
+.ims-course-card .ims-card-actions {
+  padding: 0 14px 14px;
+}
+
+/* ── Empty state ── */
+.ims-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--admin-text-muted);
+}
+.ims-empty span { font-size: 3rem; display: block; margin-bottom: 12px; }
+.ims-empty p   { font-size: 1rem; }
+
+/* ── Skeleton loader ── */
+.skeleton-card {
+  min-height: 180px;
+  background: linear-gradient(90deg, var(--admin-hover) 25%, var(--admin-border) 50%, var(--admin-hover) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s infinite;
+  border-radius: 16px;
+}
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Table wrapper ── */
+.ims-table-wrapper {
   background: var(--admin-card-bg);
   border-radius: 16px;
   border: 1px solid var(--admin-border);
   box-shadow: var(--admin-shadow-sm);
-  overflow: hidden;
+  overflow-x: auto;          /* horizontal scroll on the wrapper only */
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
   transition: background 0.25s ease;
+}
+
+/* Prevent the page from scrolling horizontally — only the table wrapper scrolls */
+.students-main {
+  overflow-x: hidden;
+}
+
+.students-table {
+  min-width: 560px;          /* force table to stay wide so columns don't crush */
 }
 
 .students-table { margin-bottom: 0; }
@@ -120,7 +418,7 @@
   background: var(--admin-table-row-hover);
 }
 
-/* Action buttons */
+/* ── Action buttons (shared) ── */
 .edit-btn {
   background: #fef3c7;
   color: #b45309;
@@ -130,20 +428,10 @@
   padding: 6px 14px;
   transition: 0.2s ease;
 }
+.edit-btn:hover { background: #fde68a; color: #92400e; }
 
-.edit-btn:hover {
-  background: #fde68a;
-  color: #92400e;
-}
-
-[data-theme="dark"] .edit-btn {
-  background: rgba(251, 191, 36, 0.15);
-  color: #fbbf24;
-}
-
-[data-theme="dark"] .edit-btn:hover {
-  background: rgba(251, 191, 36, 0.25);
-}
+[data-theme="dark"] .edit-btn       { background: rgba(251,191,36,0.15); color: #fbbf24; }
+[data-theme="dark"] .edit-btn:hover { background: rgba(251,191,36,0.25); }
 
 .delete-btn {
   background: #fee2e2;
@@ -154,24 +442,7 @@
   padding: 6px 14px;
   transition: 0.2s ease;
 }
+.delete-btn:hover { background: #fecaca; color: #991b1b; }
 
-.delete-btn:hover {
-  background: #fecaca;
-  color: #991b1b;
-}
-
-[data-theme="dark"] .delete-btn {
-  background: rgba(239, 68, 68, 0.15);
-  color: #f87171;
-}
-
-[data-theme="dark"] .delete-btn:hover {
-  background: rgba(239, 68, 68, 0.25);
-}
-
-@media (max-width: 767px) {
-  .students-search    { max-width: 100%; width: 100%; }
-  .add-student-btn    { width: 100%; }
-  .students-table-wrapper { overflow-x: auto; }
-  .students-table     { min-width: 600px; }
-}
+[data-theme="dark"] .delete-btn       { background: rgba(239,68,68,0.15); color: #f87171; }
+[data-theme="dark"] .delete-btn:hover { background: rgba(239,68,68,0.25); }

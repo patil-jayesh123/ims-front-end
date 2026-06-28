@@ -1,53 +1,64 @@
-.signup-container {
-  width: 100%;
-  min-height: 100vh;
-  background: var(--page-bg);
+/* ============================================================
+   SIGNUP PAGE
+   The shared .auth-page split-panel layout comes from login.css
+   (both pages share the same layout classes).
+   This file adds Signup-specific box styles.
+   ============================================================ */
+
+/* Import shared auth layout — login.css is loaded globally via Login.jsx,
+   but if Signup is visited directly, duplicate the container rules here. */
+.auth-page {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Poppins", sans-serif;
-  padding: 2rem 1rem;
+  min-height: 100vh;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  background: var(--page-bg);
 }
 
+/* ── Signup box ── */
 .signup-box {
   width: 100%;
-  max-width: 440px;
+  max-width: 420px;
   background: var(--card-bg);
-  padding: 40px 32px;
+  padding: 40px 36px;
   border-radius: 20px;
   border: 1.5px solid var(--card-border);
   box-shadow: var(--card-shadow);
   text-align: center;
-  animation: fadeIn 0.7s ease-in-out;
+  animation: signup-fade-in 0.5s ease-out;
 }
 
-/* Icon circle */
+@media (max-width: 400px) {
+  .signup-box { padding: 28px 20px; }
+}
+
+/* ── Icon ── */
 .signup-icon {
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 16px;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 18px;
   border-radius: 50%;
   background: linear-gradient(135deg, #4f46e5, #7c3aed);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  box-shadow: 0 8px 20px rgba(99,102,241,0.3);
 }
 
 .signup-box h2 {
-  font-size: 26px;
+  font-size: 1.6rem;
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 4px;
 }
 
-.signup-box p {
+.signup-box > p {
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   margin-bottom: 24px;
 }
 
-/* Field wrapper */
+/* ── Fields ── */
 .signup-field {
   text-align: left;
   margin-bottom: 16px;
@@ -55,7 +66,7 @@
 
 .signup-field label {
   display: block;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-muted);
   margin-bottom: 6px;
@@ -64,7 +75,8 @@
 .signup-field input {
   width: 100%;
   padding: 12px 14px;
-  font-size: 15px;
+  font-size: 0.92rem;
+  font-family: inherit;
   border: 1.5px solid var(--input-border);
   border-radius: 10px;
   outline: none;
@@ -73,64 +85,103 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.25s ease;
 }
 
-.signup-field input::placeholder {
-  color: var(--input-placeholder);
-}
+.signup-field input::placeholder { color: var(--input-placeholder); }
 
 .signup-field input:focus {
-  border-color: var(--input-border-focus);
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+  border-color: var(--input-border-focus, #6366f1);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
 }
 
-/* Submit Button */
+/* Password wrapper reuses .auth-pwd-wrapper from login.css */
+.auth-pwd-wrapper {
+  position: relative;
+}
+.auth-pwd-wrapper input { padding-right: 42px; }
+
+.auth-pwd-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+.auth-pwd-toggle:hover { opacity: 1; }
+
+/* ── Submit button ── */
 .signup-btn {
   width: 100%;
-  padding: 12px;
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
-  color: white;
-  font-size: 16px;
+  padding: 13px;
+  font-size: 0.95rem;
   font-weight: 600;
+  font-family: inherit;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #fff;
   border: none;
   border-radius: 10px;
+  margin-top: 6px;
+  margin-bottom: 18px;
   cursor: pointer;
-  margin-top: 8px;
-  margin-bottom: 16px;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s, transform 0.15s;
+  box-shadow: 0 4px 14px rgba(99,102,241,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
 }
+.signup-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+.signup-btn:disabled { opacity: 0.65; cursor: not-allowed; }
 
-.signup-btn:hover:not(:disabled) {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-.signup-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-/* Bottom link */
-.signup-links {
-  margin-top: 4px;
-}
+/* ── Bottom link ── */
+.signup-links { margin-top: 4px; }
 
 .signup-links p {
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   margin: 0;
 }
 
 .signup-links a {
-  color: var(--text-link);
+  color: var(--text-link, #6366f1);
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.2s ease;
+  transition: color 0.2s;
 }
+.signup-links a:hover { color: var(--accent-2, #7c3aed); }
 
-.signup-links a:hover {
-  color: var(--accent-2);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px); }
+/* ── Animation ── */
+@keyframes signup-fade-in {
+  from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Spinner (same as auth-spinner) ── */
+.auth-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: auth-spin 0.7s linear infinite;
+  vertical-align: middle;
+}
+@keyframes auth-spin { to { transform: rotate(360deg); } }
+
+/* ── Mobile ── */
+@media (max-width: 767px) {
+  .signup-box {
+    padding: 28px 20px;
+    border-radius: 16px;
+  }
+  .signup-box h2 { font-size: 1.35rem; }
+}
+
+@media (max-width: 360px) {
+  .signup-box { padding: 20px 14px; }
 }
