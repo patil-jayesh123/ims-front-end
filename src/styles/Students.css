@@ -1,25 +1,43 @@
+/* ============================================================
+   STUDENTS PAGE — sidebar-aware layout + table styles
+   ============================================================ */
+
 .students-container {
   display: flex;
   min-height: 100vh;
-  background: #f4f6fb;
+  background: var(--admin-page-bg);
   font-family: "Poppins", "Segoe UI", sans-serif;
+  transition: background 0.25s ease;
 }
 
 .students-main {
-  margin-left: 250px;
-  padding: 32px 28px;
+  padding: 88px 28px 28px;
   flex: 1;
+  transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 768px) {
+  .students-main            { margin-left: 250px; }
+  .students-main--collapsed { margin-left: 64px;  }
+}
+
+@media (max-width: 767px) {
+  .students-main,
+  .students-main--collapsed {
+    margin-left: 0;
+    padding: 80px 16px 24px;
+  }
 }
 
 .students-header h1 {
   font-size: 1.7rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--admin-text-primary);
   margin-bottom: 2px;
 }
 
 .students-header p {
-  color: #6b7280;
+  color: var(--admin-text-muted);
   font-size: 0.9rem;
   margin-bottom: 24px;
 }
@@ -28,12 +46,20 @@
 .students-search {
   max-width: 320px;
   border-radius: 10px;
-  border: 1.5px solid #e5e7eb;
+  border: 1.5px solid var(--admin-input-border);
   padding: 10px 14px;
+  background: var(--admin-input-bg);
+  color: var(--admin-input-text);
+  transition: border-color 0.2s ease, background 0.25s ease;
+}
+
+.students-search::placeholder {
+  color: var(--admin-input-placeholder);
 }
 
 .students-search:focus {
-  border-color: #7c3aed;
+  outline: none;
+  border-color: var(--admin-accent);
   box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
 }
 
@@ -58,20 +84,17 @@
 
 /* Table card wrapper */
 .students-table-wrapper {
-  background: #ffffff;
+  background: var(--admin-card-bg);
   border-radius: 16px;
-  border: 1px solid #eef0f3;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--admin-border);
+  box-shadow: var(--admin-shadow-sm);
   overflow: hidden;
+  transition: background 0.25s ease;
 }
 
-.students-table {
-  margin-bottom: 0;
-}
+.students-table { margin-bottom: 0; }
 
-.students-table thead {
-  background: #f9fafb;
-}
+.students-table thead { background: var(--admin-table-head-bg); }
 
 .students-table thead th {
   border: none;
@@ -79,24 +102,22 @@
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: #6b7280;
+  color: var(--admin-text-muted);
   font-weight: 600;
 }
 
 .students-table tbody td {
   padding: 14px 16px;
   vertical-align: middle;
-  border-color: #f1f2f6;
-  color: #374151;
+  border-color: var(--admin-table-border);
+  color: var(--admin-table-text);
   font-size: 0.92rem;
+  background: var(--admin-card-bg);
+  transition: background 0.25s ease;
 }
 
-.students-table tbody tr {
-  transition: background 0.15s ease;
-}
-
-.students-table tbody tr:hover {
-  background: #faf9ff;
+.students-table tbody tr:hover td {
+  background: var(--admin-table-row-hover);
 }
 
 /* Action buttons */
@@ -115,6 +136,15 @@
   color: #92400e;
 }
 
+[data-theme="dark"] .edit-btn {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .edit-btn:hover {
+  background: rgba(251, 191, 36, 0.25);
+}
+
 .delete-btn {
   background: #fee2e2;
   color: #b91c1c;
@@ -130,63 +160,18 @@
   color: #991b1b;
 }
 
-/* Responsive */
-/* ==========================
-   MOBILE RESPONSIVE
-========================== */
-@media (max-width: 768px) {
-  .students-container {
-    flex-direction: column;
-  }
+[data-theme="dark"] .delete-btn {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
 
-  .students-main {
-    margin-left: 0;
-    padding: 20px 15px;
-    width: 100%;
-  }
+[data-theme="dark"] .delete-btn:hover {
+  background: rgba(239, 68, 68, 0.25);
+}
 
-  .students-header {
-    text-align: center;
-  }
-
-  .students-header h1 {
-    font-size: 1.4rem;
-  }
-
-  .students-header p {
-    font-size: 0.85rem;
-  }
-
-  .students-search {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .add-student-btn {
-    width: 100%;
-  }
-
-  .students-table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .students-table {
-    min-width: 650px;
-  }
-
-  .students-table th,
-  .students-table td {
-    white-space: nowrap;
-  }
-
-  .students-table td:last-child {
-    min-width: 140px;
-  }
-
-  .edit-btn,
-  .delete-btn {
-    padding: 6px 10px;
-    font-size: 12px;
-  }
+@media (max-width: 767px) {
+  .students-search    { max-width: 100%; width: 100%; }
+  .add-student-btn    { width: 100%; }
+  .students-table-wrapper { overflow-x: auto; }
+  .students-table     { min-width: 600px; }
 }

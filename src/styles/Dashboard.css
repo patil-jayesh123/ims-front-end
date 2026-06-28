@@ -1,194 +1,115 @@
-/* Flex container for sidebar + main content */
+/* ============================================================
+   DASHBOARD — sidebar-aware layout with CSS variables
+   ============================================================ */
+
 .dashboard-container {
   display: flex;
   min-height: 100vh;
-  background: #f4f6fb;
+  background: var(--admin-page-bg);
   font-family: "Poppins", "Segoe UI", sans-serif;
+  transition: background 0.25s ease;
 }
 
-/* Sidebar styles (reuse from your Sidebar.css or keep here for dashboard) */
-.sidebar {
-  width: 250px;
-  background: linear-gradient(180deg, #1e2433, #161b27);
-  color: white;
-  padding: 24px 18px;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
-}
-
-.sidebar .logo {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 28px;
-  text-align: center;
-  background: linear-gradient(135deg, #818cf8, #c4b5fd);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar ul li {
-  padding: 12px 14px;
-  margin: 8px 0;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.25s ease;
-}
-
-.sidebar ul li:hover {
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
-  border-color: transparent;
-  transform: translateX(2px);
-}
-
-.sidebar ul li a {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.85);
-  display: block;
-  font-weight: 500;
-}
-
-.sidebar ul li:hover a {
-  color: #ffffff;
-}
-
-/* Main Dashboard Content */
+/* ── Main Content — shifts with sidebar ── */
 .main-content {
-  margin-left: 250px;
-  padding: 20px;
+  padding: 88px 28px 28px;
   flex: 1;
+  min-height: 100vh;
+  background: var(--admin-page-bg);
+  transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              background 0.25s ease;
 }
 
-/* Dashboard header */
+/* Desktop: shift based on sidebar width */
+@media (min-width: 768px) {
+  .main-content { margin-left: 250px; }
+  .main-content--collapsed { margin-left: 64px; }
+}
+
+/* Mobile: always full width */
+@media (max-width: 767px) {
+  .main-content,
+  .main-content--collapsed {
+    margin-left: 0;
+    padding: 80px 16px 24px;
+  }
+}
+
+/* ── Dashboard Header ── */
 .dashboard-header h1 {
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--admin-text-primary);
+  font-size: 1.7rem;
 }
 
 .dashboard-header p {
-  color: #6b7280;
-  margin-bottom: 20px;
+  color: var(--admin-text-muted);
+  margin-bottom: 24px;
+  font-size: 0.95rem;
 }
 
-/* Stats Cards */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
+/* ── Stats Cards ── */
 .stats-grid .card {
-  border: 1px solid #eef0f3;
-  border-radius: 12px;
-  box-shadow: none !important;
-  transition: 0.2s ease;
+  border: 1px solid var(--admin-border);
+  border-radius: 14px;
+  background: var(--admin-card-bg);
+  box-shadow: var(--admin-shadow-sm) !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.25s ease;
 }
 
 .stats-grid .card:hover {
-  border-color: #ddd6fe;
+  border-color: var(--admin-border-hover);
+  box-shadow: var(--admin-shadow-md) !important;
 }
 
-.stats-grid .card-body {
-  padding: 22px 18px;
-}
+.stats-grid .card-body { padding: 22px 18px; }
 
 .stats-grid .card h3 {
   font-weight: 700;
   font-size: 1.9rem;
-  color: #1f2937;
+  color: var(--admin-stat-number);
   margin-bottom: 4px;
 }
 
 .stats-grid .card p {
-  color: #6b7280;
+  color: var(--admin-stat-label);
   font-weight: 500;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   margin: 0;
 }
 
-/* Simple colored left border per card instead of icon chips */
-.stats-grid .col-6:nth-child(1) .card {
-  border-left: 3px solid #4f46e5;
-}
-.stats-grid .col-6:nth-child(2) .card {
-  border-left: 3px solid #7c3aed;
-}
-.stats-grid .col-6:nth-child(3) .card {
-  border-left: 3px solid #2563eb;
-}
-.stats-grid .col-6:nth-child(4) .card {
-  border-left: 3px solid #db2777;
-}
+.stats-grid .col-6:nth-child(1) .card { border-left: 3px solid #4f46e5; }
+.stats-grid .col-6:nth-child(2) .card { border-left: 3px solid #7c3aed; }
+.stats-grid .col-6:nth-child(3) .card { border-left: 3px solid #2563eb; }
+.stats-grid .col-6:nth-child(4) .card { border-left: 3px solid #db2777; }
 
-/* Recent Activity */
+/* ── Recent Activity ── */
 .activity-section h2 {
-  margin-bottom: 15px;
+  margin-bottom: 14px;
   font-weight: 700;
-  color: #1f2937;
-  font-size: 1.15rem;
+  color: var(--admin-section-title);
+  font-size: 1.1rem;
 }
 
 .activity-section ul {
-  list-style: none;
+  border: 1px solid var(--admin-border);
+  border-radius: 14px;
+  overflow: hidden;
   padding: 0;
+  list-style: none;
 }
 
 .activity-section .list-group-item {
   padding: 14px 18px;
   border: none;
-  border-bottom: 1px solid #f1f2f6;
-  background: #ffffff;
-  color: #374151;
+  border-bottom: 1px solid var(--admin-activity-border);
+  background: var(--admin-activity-bg);
+  color: var(--admin-activity-text);
   font-weight: 500;
   font-size: 0.9rem;
+  transition: background 0.25s ease;
 }
 
-.activity-section .list-group-item:first-child {
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-}
-
-.activity-section .list-group-item:last-child {
-  border-bottom: none;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
-}
-
-.activity-section ul {
-  border: 1px solid #eef0f3;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-/* Responsive: sidebar collapses on small screens */
-@media (max-width: 768px) {
-  .dashboard-container {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
-
-  .main-content {
-    margin-left: 0;
-  }
-
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-}
+.activity-section .list-group-item:first-child { border-top-left-radius: 14px; border-top-right-radius: 14px; }
+.activity-section .list-group-item:last-child  { border-bottom: none; border-bottom-left-radius: 14px; border-bottom-right-radius: 14px; }

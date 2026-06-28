@@ -1,7 +1,7 @@
 .cm-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,12 +10,13 @@
 }
 
 .cm-dialog {
-  background: #fff;
+  background: var(--admin-card-bg);
+  border: 1px solid var(--admin-border);
   border-radius: 16px;
   width: 100%;
   max-width: 400px;
   margin: 1rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
   animation: cm-scale-in 0.18s ease-out;
 }
 
@@ -36,28 +37,18 @@
   font-weight: bold;
 }
 
-.cm-icon-danger {
-  background-color: #fde2e1;
-  color: #dc3545;
-}
-
-.cm-icon-primary {
-  background-color: #dce7ff;
-  color: #0d6efd;
-}
-
-.cm-icon-warning {
-  background-color: #fff3cd;
-  color: #997404;
-}
+.cm-icon-danger  { background: rgba(239, 68, 68, 0.15);  color: #f87171; }
+.cm-icon-primary { background: rgba(79, 70, 229, 0.15);  color: #818cf8; }
+.cm-icon-warning { background: rgba(234, 179, 8, 0.15);  color: #facc15; }
 
 .cm-title {
   font-weight: 700;
   margin-bottom: 0.5rem;
+  color: var(--admin-text-primary);
 }
 
 .cm-message {
-  color: #6c757d;
+  color: var(--admin-text-muted);
   margin-bottom: 1.75rem;
 }
 
@@ -67,12 +58,25 @@
   gap: 0.75rem;
 }
 
+/* Cancel button — theme-aware */
+.cm-actions .btn-outline-secondary {
+  color: var(--admin-text-muted);
+  border-color: var(--admin-border);
+  background: transparent;
+}
+
+.cm-actions .btn-outline-secondary:hover {
+  background: var(--admin-hover);
+  color: var(--admin-text-primary);
+  border-color: var(--admin-border-hover);
+}
+
 @keyframes cm-fade-in {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
 @keyframes cm-scale-in {
   from { transform: scale(0.92); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  to   { transform: scale(1);    opacity: 1; }
 }

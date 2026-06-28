@@ -4,13 +4,13 @@
 
 /* Hero */
 .ims-hero {
-  background: #ffffff;
+  background: var(--hero-bg);
 }
 
 .ims-badge {
   display: inline-block;
-  background: #f3f0ff;
-  color: #4f46e5;
+  background: var(--accent-bg);
+  color: var(--accent);
   font-size: 0.8rem;
   font-weight: 600;
   padding: 6px 14px;
@@ -18,13 +18,17 @@
 }
 
 .ims-hero h1 {
-  color: #1f2937;
+  color: var(--text-primary);
+}
+
+.ims-hero .lead {
+  color: var(--text-muted) !important;
 }
 
 .ims-hero-img {
   max-height: 360px;
   object-fit: cover;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
 /* Buttons */
@@ -46,36 +50,45 @@
 }
 
 .ims-btn-outline {
-  background: #fff;
-  color: #4f46e5;
+  background: var(--card-bg);
+  color: var(--accent);
   font-weight: 600;
-  border: 1.5px solid #ddd6fe;
+  border: 1.5px solid var(--card-border-hover);
   border-radius: 10px;
   padding: 10px 22px;
   transition: 0.2s ease;
 }
 
 .ims-btn-outline:hover {
-  background: #f3f0ff;
-  border-color: #c4b5fd;
-  color: #4f46e5;
+  background: var(--accent-bg);
+  border-color: var(--accent-2);
+  color: var(--accent);
 }
 
 /* Features */
 .ims-features {
-  background: #f9fafb;
+  background: var(--features-bg);
+}
+
+.ims-features h2 {
+  color: var(--text-primary);
+}
+
+.ims-features .text-secondary {
+  color: var(--text-muted) !important;
 }
 
 .ims-feature-card {
-  border: 1px solid #eef0f3;
+  border: 1px solid var(--card-border);
   border-radius: 14px;
-  background: #ffffff;
-  transition: 0.2s ease;
+  background: var(--card-bg);
+  transition: 0.2s ease, background 0.25s ease, border-color 0.25s ease;
 }
 
 .ims-feature-card:hover {
-  border-color: #ddd6fe;
+  border-color: var(--card-border-hover);
   transform: translateY(-3px);
+  box-shadow: var(--card-shadow-hover);
 }
 
 .ims-feature-icon {
@@ -83,7 +96,7 @@
   height: 52px;
   margin: 0 auto 14px;
   border-radius: 12px;
-  background: #f3f0ff;
+  background: var(--accent-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,17 +104,18 @@
 }
 
 .ims-feature-card .card-title {
-  color: #1f2937;
+  color: var(--text-primary);
   font-size: 1rem;
 }
 
 .ims-feature-card .card-text {
   font-size: 0.88rem;
+  color: var(--text-muted) !important;
 }
 
 /* Footer */
 .ims-footer {
-  background: #1f2937;
-  color: #d1d5db;
+  background: var(--footer-bg);
+  color: var(--footer-text);
   font-size: 0.88rem;
 }

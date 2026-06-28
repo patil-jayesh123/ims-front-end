@@ -2,7 +2,7 @@
 .login-container {
   width: 100%;
   min-height: 100vh;
-  background: #ffffff;
+  background: var(--page-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,11 +14,11 @@
 .login-box {
   width: 100%;
   max-width: 440px;
-  background: white;
+  background: var(--card-bg);
   padding: 40px 32px;
   border-radius: 20px;
-  border: 1.5px solid #eef0f3;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  border: 1.5px solid var(--card-border);
+  box-shadow: var(--card-shadow);
   text-align: center;
   animation: fadeIn 0.7s ease-in-out;
 }
@@ -38,12 +38,12 @@
 .login-box h2 {
   font-size: 26px;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
 .login-box p {
-  color: #6b7280;
+  color: var(--text-muted);
   font-size: 0.9rem;
   margin-bottom: 25px;
 }
@@ -54,14 +54,20 @@
   padding: 12px 14px;
   margin: 8px 0;
   font-size: 15px;
-  border: 1.5px solid #e5e7eb;
+  border: 1.5px solid var(--input-border);
   border-radius: 10px;
   outline: none;
+  background: var(--input-bg);
+  color: var(--input-text);
   transition: 0.2s;
 }
 
+.login-box input::placeholder {
+  color: var(--input-placeholder);
+}
+
 .login-box input:focus {
-  border-color: #7c3aed;
+  border-color: var(--input-border-focus);
   box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
 }
 
@@ -80,14 +86,8 @@
   transition: opacity 0.2s;
 }
 
-.login-btn:hover:not(:disabled) {
-  opacity: 0.9;
-}
-
-.login-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
+.login-btn:hover:not(:disabled) { opacity: 0.9; }
+.login-btn:disabled { opacity: 0.7; cursor: not-allowed; }
 
 /* Extra links */
 .extra-links {
@@ -98,24 +98,17 @@
 
 .extra-links a {
   text-decoration: none;
-  color: #4f46e5;
+  color: var(--text-link);
   font-size: 14px;
   font-weight: 500;
   transition: 0.2s;
 }
 
 .extra-links a:hover {
-  color: #283593;
+  color: var(--accent-2);
 }
 
-/* Animation */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

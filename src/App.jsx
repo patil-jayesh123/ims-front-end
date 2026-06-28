@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import About from "./components/About";
 import Navbar from "./components/Navbar";
+import AdminNavbar from "./components/AdminNavbar";
 import Courses from "./components/Courses";
 import Contact from "./components/Contact";
 import Signup from "./components/Signup";
@@ -27,46 +28,46 @@ import ResetPassword from "./components/ResetPassword";
 import Courseform from "./components/Courseform";
 import axios from "axios";
 
-
 function App() {
-
-  //-----------student data dashbord pr dikane ke liye-------------------------------------
   const [studentData, setStudentData] = useState([]);
+  const [staffdata, setstaffdata] = useState([]);
 
   useEffect(() => {
-    // fetch student data here
     const fetchStudents = async () => {
-      const token = localStorage.getItem("token");
-      const result = await axios.get("https://ims-backend-p5hr.onrender.com/admin/student", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setStudentData(result.data || []);
+      try {
+        const token = localStorage.getItem("token");
+        const result = await axios.get("https://ims-backend-p5hr.onrender.com/admin/student", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setStudentData(result.data || []);
+      } catch (_) {}
     };
     fetchStudents();
   }, []);
-  //---------------------------------------------------------------------
-  const [staffdata, setstaffdata]=useState([])
 
-  useEffect(()=>{
-    const fetchstaffdata = async ()=>{
-      const token = localStorage.getItem("token");
-      const result=await axios.get("https://ims-backend-p5hr.onrender.com/admin/staff",{
-        headers:{Authorization:`Bearer ${token}`}
-      })
-      setstaffdata(result.data || [])
-    }
-    fetchstaffdata()
-  },[])
-  //---------------------------------------------------------------------
+  useEffect(() => {
+    const fetchstaffdata = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const result = await axios.get("https://ims-backend-p5hr.onrender.com/admin/staff", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setstaffdata(result.data || []);
+      } catch (_) {}
+    };
+    fetchstaffdata();
+  }, []);
 
   const location = useLocation();
-
-  // Admin routes par Navbar hide
-  const hideNavbar = location.pathname.startsWith("/admin");
+  const isAdminRoute = location.pathname.startsWith("/admin");
 
   return (
     <>
-      {!hideNavbar && <Navbar />}
+      {/* Public navbar — hide on admin pages */}
+      {!isAdminRoute && <Navbar />}
+
+      {/* Admin top navbar — show on admin pages (inside PrivateRoute so token exists) */}
+      {isAdminRoute && <AdminNavbar />}
 
       <Routes>
         {/* Public Pages */}
@@ -88,77 +89,37 @@ function App() {
             </PrivateRoute>
           }
         />
-
         <Route
           path="/admin/student"
-          element={
-            <PrivateRoute>
-              <Students />
-            </PrivateRoute>
-          }
+          element={<PrivateRoute><Students /></PrivateRoute>}
         />
-
         <Route
           path="/admin/courses"
-          element={
-            <PrivateRoute>
-              <Courses />
-            </PrivateRoute>
-          }
+          element={<PrivateRoute><Courses /></PrivateRoute>}
         />
-
         <Route
           path="/admin/staff"
-          element={
-            <PrivateRoute>
-              <Staff />
-            </PrivateRoute>
-          }
+          element={<PrivateRoute><Staff /></PrivateRoute>}
         />
-
         <Route
           path="/admin/studentform"
-          element={
-            <PrivateRoute>
-              <Studentform />
-            </PrivateRoute>
-          }
+          element={<PrivateRoute><Studentform /></PrivateRoute>}
         />
-
         <Route
           path="/admin/editstudent/:id"
-          element={
-            <PrivateRoute>
-              <EditStudent />
-            </PrivateRoute>
-          }
+          element={<PrivateRoute><EditStudent /></PrivateRoute>}
         />
-
         <Route
           path="/admin/staffform"
-          element={
-            <PrivateRoute>
-              <Staffform />
-            </PrivateRoute>
-          }
+          element={<PrivateRoute><Staffform /></PrivateRoute>}
         />
-
         <Route
           path="/admin/editstaff/:id"
-          element={
-            <PrivateRoute>
-              <Editstaff />
-            </PrivateRoute>
-          }
+          element={<PrivateRoute><Editstaff /></PrivateRoute>}
         />
-
         <Route
           path="/admin/courseform"
-          element={
-            <PrivateRoute>
-              <Courseform />
-            </PrivateRoute>
-          }
+          element={<PrivateRoute><Courseform /></PrivateRoute>}
         />
 
         {/* 404 */}
@@ -168,7 +129,6 @@ function App() {
   );
 }
 
-// Wrap App with Router
 export default function AppWrapper() {
   return (
     <Router>

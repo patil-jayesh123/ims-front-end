@@ -1,4 +1,3 @@
-
 // import React, { useEffect, useState } from "react";
 // import Sidebar from "./Sidebar";
 // import { useNavigate } from "react-router-dom";
@@ -63,7 +62,7 @@
 //     <div className="students-container">
 //       <Sidebar />
 
-//       <main className="students-main">
+//       <main className={`students-main ${!isOpen ? "students-main--collapsed" : ""}`}>
 //         <header className="students-header">
 //           <h1>Staff Management</h1>
 //           <p>View, search, and manage all staff members</p>
@@ -159,6 +158,7 @@
 
 
 import React, { useEffect, useState } from "react";
+import { useSidebar } from "./SidebarContext";
 import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -169,6 +169,7 @@ import Staffform from "./Staffform";
 import ConfirmModal from "./ConfirmModal";
 
 function Staff() {
+  const { isOpen } = useSidebar();
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
@@ -239,7 +240,7 @@ function Staff() {
     <div className="students-container">
       <Sidebar />
 
-      <main className="students-main">
+      <main className={`students-main ${!isOpen ? "students-main--collapsed" : ""}`}>
         <header className="students-header">
           <h1>Staff Management</h1>
           <p>View, search, and manage all staff members</p>

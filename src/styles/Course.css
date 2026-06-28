@@ -1,108 +1,137 @@
-/* Container */
-.courses-page {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  box-sizing: border-box;
+/* ============================================================
+   PUBLIC COURSES PAGE — theme-aware
+   ============================================================ */
+
+.pub-courses {
+  max-width: 1000px;
+  font-family: "Poppins", "Segoe UI", sans-serif;
 }
 
-/* Header */
-.courses-header {
-  margin-bottom: 20px;
+/* ── Header ── */
+.pub-courses__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
-/* Top Bar */
-.top-bar {
+.pub-courses__subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/* ── State messages ── */
+.pub-courses__state {
+  text-align: center;
+  padding: 48px 0;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.pub-courses__state--error {
+  color: #f87171;
+}
+
+/* ── Cards grid ── */
+.pub-courses__grid {
   display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.top-bar input {
-  padding: 10px;
+.pub-courses__card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 14px;
+  padding: 18px 22px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.25s ease;
+}
+
+.pub-courses__card:hover {
+  border-color: var(--accent-2, #818cf8);
+  box-shadow: 0 4px 16px rgba(79, 70, 229, 0.1);
+}
+
+/* ── Number badge ── */
+.pub-courses__card-number {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+/* ── Card body ── */
+.pub-courses__card-body {
   flex: 1;
-  min-width: 200px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-.top-bar .add-btn {
-  padding: 10px 20px;
-  background: #1abc9c;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.pub-courses__card-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
 }
 
-.top-bar .add-btn:hover {
-  background: #16a085;
+.pub-courses__card-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-/* Table */
-.table-wrapper {
-  overflow-x: auto;
+/* ── Badges ── */
+.pub-courses__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
-.courses-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
+.pub-courses__badge--duration {
+  background: rgba(79, 70, 229, 0.1);
+  color: var(--accent, #4f46e5);
+  border: 1px solid rgba(79, 70, 229, 0.2);
 }
 
-.courses-table th,
-.courses-table td {
-  padding: 12px;
-  border: 1px solid #ddd;
-  text-align: left;
+.pub-courses__badge--instructor {
+  background: rgba(124, 58, 237, 0.1);
+  color: #7c3aed;
+  border: 1px solid rgba(124, 58, 237, 0.2);
 }
 
-.courses-table th {
-  background: #34495e;
-  color: white;
+[data-theme="dark"] .pub-courses__badge--duration {
+  background: rgba(129, 140, 248, 0.15);
+  color: #818cf8;
+  border-color: rgba(129, 140, 248, 0.25);
 }
 
-.courses-table td button {
-  margin-right: 5px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
+[data-theme="dark"] .pub-courses__badge--instructor {
+  background: rgba(196, 181, 253, 0.15);
+  color: #c4b5fd;
+  border-color: rgba(196, 181, 253, 0.25);
 }
 
-.courses-table .edit {
-  background: #3498db;
-  color: white;
-}
-
-.courses-table .edit:hover {
-  background: #2980b9;
-}
-
-.courses-table .delete {
-  background: #e74c3c;
-  color: white;
-}
-
-.courses-table .delete:hover {
-  background: #c0392b;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .top-bar {
+@media (max-width: 576px) {
+  .pub-courses__card-body {
     flex-direction: column;
-  }
-
-  .top-bar input {
-    width: 100%;
-  }
-
-  .courses-table th,
-  .courses-table td {
-    padding: 8px;
+    align-items: flex-start;
   }
 }

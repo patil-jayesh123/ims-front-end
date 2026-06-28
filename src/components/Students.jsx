@@ -62,7 +62,7 @@
 //     <div className="students-container">
 //       <Sidebar />
 
-//       <main className="students-main">
+//       <main className={`students-main ${!isOpen ? "students-main--collapsed" : ""}`}>
 //         <header className="students-header">
 //           <h1>Student Management</h1>
 //           <p>View, search, and manage all enrolled students</p>
@@ -161,6 +161,7 @@
 // export default Students;
 
 import React, { useEffect, useState } from "react";
+import { useSidebar } from "./SidebarContext";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -171,6 +172,7 @@ import "../styles/Students.css";
 import Studentform from "./Studentform";
 
 function Students() {
+  const { isOpen } = useSidebar();
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
@@ -241,7 +243,7 @@ function Students() {
     <div className="students-container">
       <Sidebar />
 
-      <main className="students-main">
+      <main className={`students-main ${!isOpen ? "students-main--collapsed" : ""}`}>
         <header className="students-header">
           <h1>Student Management</h1>
           <p>View, search, and manage all enrolled students</p>

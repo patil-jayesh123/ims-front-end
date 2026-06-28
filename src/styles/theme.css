@@ -1,0 +1,323 @@
+/* ============================================================
+   IMS — GLOBAL THEME TOKENS
+   Import this file once in main.jsx or App.jsx
+   All admin components reference these CSS variables.
+   ============================================================ */
+
+/* ── LIGHT MODE (default) ── */
+:root,
+[data-theme="light"] {
+  /* Backgrounds */
+  --admin-page-bg: #f4f6fb;
+  --admin-card-bg: #ffffff;
+  --admin-navbar-bg: #ffffff;
+  --admin-sidebar-bg: linear-gradient(180deg, #1e2433, #161b27);
+  --admin-dropdown-header-bg: #f8f9fc;
+  --admin-hover: #f3f4f6;
+
+  /* Text */
+  --admin-text-primary: #1f2937;
+  --admin-text-secondary: #374151;
+  --admin-text-muted: #6b7280;
+
+  /* Borders */
+  --admin-border: #eef0f3;
+  --admin-border-hover: #ddd6fe;
+
+  /* Accent */
+  --admin-accent: #4f46e5;
+  --admin-accent-2: #7c3aed;
+
+  /* Table */
+  --admin-table-head-bg: #f8f9fc;
+  --admin-table-row-hover: #f3f4f6;
+  --admin-table-border: #eef0f3;
+  --admin-table-text: #374151;
+
+  /* Activity list */
+  --admin-activity-bg: #ffffff;
+  --admin-activity-border: #f1f2f6;
+  --admin-activity-text: #374151;
+
+  /* Stats card */
+  --admin-stat-number: #1f2937;
+  --admin-stat-label: #6b7280;
+
+  /* Input / Search */
+  --admin-input-bg: #ffffff;
+  --admin-input-border: #e5e7eb;
+  --admin-input-text: #1f2937;
+  --admin-input-placeholder: #9ca3af;
+  --admin-input-focus: #4f46e5;
+
+  /* Form */
+  --admin-form-bg: #ffffff;
+  --admin-form-overlay: rgba(0, 0, 0, 0.3);
+
+  /* Section headers */
+  --admin-section-title: #1f2937;
+
+  /* Badge / status */
+  --admin-badge-bg: #ede9fe;
+  --admin-badge-text: #4f46e5;
+
+  /* Shadows */
+  --admin-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.06);
+  --admin-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ── DARK MODE ── */
+[data-theme="dark"] {
+  /* Backgrounds */
+  --admin-page-bg: #0f1117;
+  --admin-card-bg: #1a1d27;
+  --admin-navbar-bg: #13151f;
+  --admin-sidebar-bg: linear-gradient(180deg, #13151f, #0f1117);
+  --admin-dropdown-header-bg: #12141e;
+  --admin-hover: #22253a;
+
+  /* Text */
+  --admin-text-primary: #e8eaf0;
+  --admin-text-secondary: #c9cdd8;
+  --admin-text-muted: #7b80a0;
+
+  /* Borders */
+  --admin-border: #252840;
+  --admin-border-hover: #4f46e5;
+
+  /* Accent */
+  --admin-accent: #818cf8;
+  --admin-accent-2: #a78bfa;
+
+  /* Table */
+  --admin-table-head-bg: #12141e;
+  --admin-table-row-hover: #22253a;
+  --admin-table-border: #252840;
+  --admin-table-text: #c9cdd8;
+
+  /* Activity list */
+  --admin-activity-bg: #1a1d27;
+  --admin-activity-border: #252840;
+  --admin-activity-text: #c9cdd8;
+
+  /* Stats card */
+  --admin-stat-number: #e8eaf0;
+  --admin-stat-label: #7b80a0;
+
+  /* Input / Search */
+  --admin-input-bg: #12141e;
+  --admin-input-border: #252840;
+  --admin-input-text: #e8eaf0;
+  --admin-input-placeholder: #4b5173;
+  --admin-input-focus: #818cf8;
+
+  /* Form */
+  --admin-form-bg: #1a1d27;
+  --admin-form-overlay: rgba(0, 0, 0, 0.6);
+
+  /* Section headers */
+  --admin-section-title: #e8eaf0;
+
+  /* Badge / status */
+  --admin-badge-bg: #1e2040;
+  --admin-badge-text: #818cf8;
+
+  /* Shadows */
+  --admin-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.3);
+  --admin-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Smooth transitions for theme switch ── */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 0.25s;
+  transition-timing-function: ease;
+}
+
+/* Don't animate transforms/layout with blanket transition */
+*:where(button, a, .sidebar ul li, .admin-navbar__chevron) {
+  transition: all 0.2s ease;
+}
+
+
+
+/* ============================================================
+   IMS — GLOBAL THEME TOKENS
+   Imported once in main.jsx
+   All components reference these CSS variables.
+   ============================================================ */
+
+/* ── LIGHT MODE (default) ── */
+:root,
+[data-theme="light"] {
+  /* Page backgrounds */
+  --page-bg:                #ffffff;
+  --page-bg-alt:            #f9fafb;
+  --page-bg-subtle:         #f3f4f6;
+
+  /* Card / surface */
+  --card-bg:                #ffffff;
+  --card-border:            #eef0f3;
+  --card-border-hover:      #ddd6fe;
+  --card-shadow:            0 4px 20px rgba(0,0,0,0.05);
+  --card-shadow-hover:      0 8px 28px rgba(0,0,0,0.09);
+
+  /* Text */
+  --text-primary:           #1f2937;
+  --text-secondary:         #374151;
+  --text-muted:             #6b7280;
+  --text-link:              #4f46e5;
+
+  /* Inputs */
+  --input-bg:               #ffffff;
+  --input-border:           #e5e7eb;
+  --input-border-focus:     #7c3aed;
+  --input-text:             #1f2937;
+  --input-placeholder:      #9ca3af;
+
+  /* Accent / brand */
+  --accent:                 #4f46e5;
+  --accent-2:               #7c3aed;
+  --accent-bg:              #f3f0ff;
+  --accent-bg-hover:        #ede9fe;
+
+  /* Section / hero */
+  --hero-bg:                #ffffff;
+  --features-bg:            #f9fafb;
+  --footer-bg:              #1f2937;
+  --footer-text:            #d1d5db;
+
+  /* Info boxes */
+  --info-box-bg:            #f5f7ff;
+  --info-box-hover:         #e9edff;
+  --info-heading:           #283593;
+
+  /* Navbar (public) */
+  --navbar-bg:              #ffffff;
+  --navbar-border:          #eef0f3;
+
+  /* Admin panel */
+  --admin-page-bg:          #f4f6fb;
+  --admin-card-bg:          #ffffff;
+  --admin-navbar-bg:        #ffffff;
+  --admin-sidebar-bg:       linear-gradient(180deg, #1e2433, #161b27);
+  --admin-dropdown-header-bg:#f8f9fc;
+  --admin-hover:            #f3f4f6;
+  --admin-text-primary:     #1f2937;
+  --admin-text-muted:       #6b7280;
+  --admin-border:           #eef0f3;
+  --admin-border-hover:     #ddd6fe;
+  --admin-accent:           #4f46e5;
+  --admin-table-head-bg:    #f8f9fc;
+  --admin-table-row-hover:  #f3f4f6;
+  --admin-table-border:     #eef0f3;
+  --admin-table-text:       #374151;
+  --admin-activity-bg:      #ffffff;
+  --admin-activity-border:  #f1f2f6;
+  --admin-activity-text:    #374151;
+  --admin-stat-number:      #1f2937;
+  --admin-stat-label:       #6b7280;
+  --admin-input-bg:         #ffffff;
+  --admin-input-border:     #e5e7eb;
+  --admin-input-text:       #1f2937;
+  --admin-input-placeholder:#9ca3af;
+  --admin-input-focus:      #4f46e5;
+  --admin-section-title:    #1f2937;
+  --admin-shadow-sm:        0 1px 4px rgba(0,0,0,0.06);
+  --admin-shadow-md:        0 4px 16px rgba(0,0,0,0.08);
+}
+
+/* ── DARK MODE ── */
+[data-theme="dark"] {
+  /* Page backgrounds */
+  --page-bg:                #0f1117;
+  --page-bg-alt:            #12141e;
+  --page-bg-subtle:         #1a1d27;
+
+  /* Card / surface */
+  --card-bg:                #1a1d27;
+  --card-border:            #252840;
+  --card-border-hover:      #4f46e5;
+  --card-shadow:            0 4px 20px rgba(0,0,0,0.3);
+  --card-shadow-hover:      0 8px 28px rgba(0,0,0,0.45);
+
+  /* Text */
+  --text-primary:           #e8eaf0;
+  --text-secondary:         #c9cdd8;
+  --text-muted:             #7b80a0;
+  --text-link:              #818cf8;
+
+  /* Inputs */
+  --input-bg:               #12141e;
+  --input-border:           #252840;
+  --input-border-focus:     #818cf8;
+  --input-text:             #e8eaf0;
+  --input-placeholder:      #4b5173;
+
+  /* Accent / brand */
+  --accent:                 #818cf8;
+  --accent-2:               #a78bfa;
+  --accent-bg:              #1e2040;
+  --accent-bg-hover:        #262850;
+
+  /* Section / hero */
+  --hero-bg:                #0f1117;
+  --features-bg:            #12141e;
+  --footer-bg:              #080a10;
+  --footer-text:            #7b80a0;
+
+  /* Info boxes */
+  --info-box-bg:            #1a1d27;
+  --info-box-hover:         #22253a;
+  --info-heading:           #818cf8;
+
+  /* Navbar (public) */
+  --navbar-bg:              #13151f;
+  --navbar-border:          #252840;
+
+  /* Admin panel */
+  --admin-page-bg:          #0f1117;
+  --admin-card-bg:          #1a1d27;
+  --admin-navbar-bg:        #13151f;
+  --admin-sidebar-bg:       linear-gradient(180deg, #13151f, #0f1117);
+  --admin-dropdown-header-bg:#12141e;
+  --admin-hover:            #22253a;
+  --admin-text-primary:     #e8eaf0;
+  --admin-text-muted:       #7b80a0;
+  --admin-border:           #252840;
+  --admin-border-hover:     #4f46e5;
+  --admin-accent:           #818cf8;
+  --admin-table-head-bg:    #12141e;
+  --admin-table-row-hover:  #22253a;
+  --admin-table-border:     #252840;
+  --admin-table-text:       #c9cdd8;
+  --admin-activity-bg:      #1a1d27;
+  --admin-activity-border:  #252840;
+  --admin-activity-text:    #c9cdd8;
+  --admin-stat-number:      #e8eaf0;
+  --admin-stat-label:       #7b80a0;
+  --admin-input-bg:         #12141e;
+  --admin-input-border:     #252840;
+  --admin-input-text:       #e8eaf0;
+  --admin-input-placeholder:#4b5173;
+  --admin-input-focus:      #818cf8;
+  --admin-section-title:    #e8eaf0;
+  --admin-shadow-sm:        0 1px 4px rgba(0,0,0,0.3);
+  --admin-shadow-md:        0 4px 16px rgba(0,0,0,0.4);
+}
+
+/* ── Base resets using variables ── */
+body {
+  background-color: var(--page-bg);
+  color: var(--text-primary);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Smooth transitions for theme switch */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 0.25s;
+  transition-timing-function: ease;
+}

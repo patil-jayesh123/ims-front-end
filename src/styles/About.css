@@ -1,10 +1,11 @@
 .about-container {
   font-family: "Poppins", sans-serif;
   width: 100%;
-  color: #333;
+  color: var(--text-primary);
+  background: var(--page-bg);
 }
 
-/* Hero Section */
+/* Hero Section — keep brand gradient, just overlay text adapts */
 .about-hero {
   background: linear-gradient(135deg, #3f51b5, #5c6bc0);
   padding: 70px 20px;
@@ -12,14 +13,8 @@
   color: white;
 }
 
-.about-hero h1 {
-  font-size: 48px;
-  margin-bottom: 10px;
-}
-
-.about-hero p {
-  font-size: 18px;
-}
+.about-hero h1 { font-size: 48px; margin-bottom: 10px; }
+.about-hero p  { font-size: 18px; }
 
 /* Content Section */
 .about-content {
@@ -27,21 +22,20 @@
   justify-content: space-between;
   padding: 60px 80px;
   gap: 40px;
+  background: var(--page-bg);
 }
 
-.about-text {
-  flex: 1;
-}
+.about-text { flex: 1; }
 
 .about-text h2 {
   font-size: 28px;
-  color: #283593;
+  color: var(--info-heading);
   margin-bottom: 10px;
 }
 
 .about-text p {
   margin-bottom: 20px;
-  color: #555;
+  color: var(--text-muted);
   line-height: 1.7;
 }
 
@@ -51,10 +45,9 @@
   animation: float 4s infinite ease-in-out;
 }
 
-/* Floating Animation */
 @keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-12px); }
   100% { transform: translateY(0); }
 }
 
@@ -62,12 +55,12 @@
 .values-section {
   text-align: center;
   padding: 60px 50px;
-  background: #f5f7ff;
+  background: var(--features-bg);
 }
 
 .values-section h2 {
   font-size: 32px;
-  color: #283593;
+  color: var(--info-heading);
   margin-bottom: 30px;
 }
 
@@ -79,22 +72,31 @@
 
 .value-card {
   padding: 25px;
-  background: #fff;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  box-shadow: var(--card-shadow);
+  color: var(--text-primary);
   transition: 0.3s;
 }
 
 .value-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+  box-shadow: var(--card-shadow-hover);
+  border-color: var(--card-border-hover);
 }
 
 /* Footer */
 .about-footer {
   text-align: center;
   padding: 20px;
-  background: #3f51b5;
-  color: white;
+  background: var(--footer-bg);
+  color: var(--footer-text);
   margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+  .about-content { flex-direction: column; padding: 40px 20px; }
+  .about-image img { width: 100%; }
+  .values-grid { grid-template-columns: 1fr 1fr; }
 }
